@@ -1,13 +1,951 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connectly - Build Better Communities</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #6246EA;
+            --text-color: #FFFFFF;
+            --background-overlay: rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(var(--background-overlay), var(--background-overlay)),
+                        url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .highlight {
+            font-style: italic;
+            color: #E2E2E2;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .waitlist-form {
+            display: flex;
+            gap: 0.5rem;
+            max-width: 500px;
+            margin: 0 auto;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .waitlist-form input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+        }
+
+        .waitlist-form input::placeholder {
+            color: #666;
+        }
+
+        .waitlist-form input:focus {
+            outline: none;
+            background: white;
+        }
+
+        .waitlist-form button {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            position: relative;
+        }
+
+        .waitlist-form button:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        .spinning-heart {
+            display: none;
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: spin 1s linear infinite;
+        }
+
+        .spinning-heart::before,
+        .spinning-heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 32px;
+            background-color: white;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .spinning-heart::before {
+            left: 10px;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .spinning-heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        @keyframes spin {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
+
+        .waitlist-form button.loading .spinning-heart {
+            display: block;
+        }
+
+        .waitlist-form button.loading {
+            padding-right: 3rem;
+        }
+
+        .waitlist-form button:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .waitlist-form {
+                flex-direction: column;
+                background: transparent;
+                padding: 0;
+            }
+
+            .waitlist-form input,
+            .waitlist-form button {
+                width: 100%;
+            }
+        }
+
+        #successAnimation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            display: none;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        #successAnimation.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-message {
+            text-align: center;
+            color: white;
+            z-index: 1001;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .success-message.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .heart-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .heart-container.visible {
+            opacity: 1;
+        }
+
+        .heart {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 160px;
+            background-color: var(--primary-color);
+            border-radius: 50px 50px 0 0;
+        }
+
+        .heart::before {
+            left: 50px;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .share-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .share-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1002;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .close-button.visible {
+            opacity: 1;
+        }
+
+        .how-it-works {
+            padding: 6rem 2rem;
+            background: #f8f9fa;
+            color: #333;
+            display: none;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .carousel-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .carousel {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.5s ease;
+        }
+
+        .carousel-slide.active {
+            position: relative;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .slide-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-header h3 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .slide-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .message-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .message-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .emotional-impact {
+            background: rgba(255, 0, 0, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .emotional-impact h4 {
+            margin: 0.5rem 0;
+            color: #d32f2f;
+        }
+
+        .emotional-impact ul {
+            margin: 0;
+            padding-left: 1.5rem;
+            color: #666;
+        }
+
+        .emotional-impact li {
+            margin-bottom: 0.5rem;
+        }
+
+        .emoji {
+            font-size: 1.5rem;
+        }
+
+        .message-box.poor {
+            background: #fff5f5;
+            border: 1px solid #ffcdd2;
+        }
+
+        .message-box.improved {
+            background: #f0f9ff;
+            border: 1px solid #b3e5fc;
+        }
+
+        .outcome {
+            background: #f3f4f6;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .outcome h3 {
+            margin: 0.5rem 0;
+            color: #333;
+        }
+
+        .outcome p {
+            margin: 0;
+            color: #666;
+        }
+
+        .carousel-nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .how-it-works {
+                padding: 4rem 1rem;
+            }
+
+            .how-it-works h2 {
+                font-size: 2rem;
+            }
+
+            .slide-content {
+                padding: 1.5rem;
+            }
+
+            .slide-header h3 {
+                font-size: 1.5rem;
+            }
+
+            .slide-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .message-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="hero">
+        <svg class="logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        
+        <div class="hero-content">
+            <h1>Feel Closer. <span class="highlight">Communicate Better.</span> Strengthen Your Relationships.</h1>
+            <p class="subtitle">Daily AI guidance to help you build deeper, stronger relationships.</p>
+            
+            <form class="waitlist-form" action="https://formspree.io/f/mjkyvdal" method="POST">
+                <input type="email" name="email" placeholder="Enter your email address here" required>
+                <button type="submit">
+                    Join Waitlist
+                    <div class="spinning-heart"></div>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <section class="how-it-works">
+        <h2>How Connectly Works</h2>
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="carousel-slide active">
+                    <div class="slide-content">
+                        <div class="slide-header">
+                            <span class="emoji">🎠</span>
+                            <h3>Feeling Unheard in a Relationship</h3>
+                        </div>
+                        <div class="slide-subtitle">"Struggling to Be Heard? Try This Instead."</div>
+                        
+                        <div class="message-box poor">
+                            <div class="message-header">
+                                <span class="emoji">💬</span>
+                                <h3>Frustrated Message</h3>
+                            </div>
+                            <p class="message-text">"You never listen to me! It's like I'm talking to a wall!"</p>
+                            <div class="emotional-impact">
+                                <span class="emoji">🔴</span>
+                                <h4>Emotional Impact:</h4>
+                                <ul>
+                                    <li>Makes your partner defensive instead of receptive</li>
+                                    <li>Shuts down communication instead of opening it up</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="message-box improved">
+                            <div class="message-header">
+                                <span class="emoji">💡</span>
+                                <h3>AI-Guided Solution</h3>
+                            </div>
+                            <p class="message-text">"I feel unheard, and that's frustrating for me. I'd love for us to really listen to each other—can we take a moment to connect?"</p>
+                        </div>
+
+                        <div class="outcome">
+                            <span class="emoji">❤️</span>
+                            <h3>Outcome</h3>
+                            <p>Your partner feels respected and is more likely to listen calmly.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-slide">
+                    <div class="slide-content">
+                        <div class="slide-header">
+                            <span class="emoji">🎠</span>
+                            <h3>Reconnecting with a Distant Friend</h3>
+                        </div>
+                        <div class="slide-subtitle">"Miss Your Friend? Here's a Better Way to Reach Out."</div>
+                        
+                        <div class="message-box poor">
+                            <div class="message-header">
+                                <span class="emoji">💬</span>
+                                <h3>Frustrated Message</h3>
+                            </div>
+                            <p class="message-text">"Wow, I guess I don't matter to you anymore since you never text me back."</p>
+                            <div class="emotional-impact">
+                                <span class="emoji">🔴</span>
+                                <h4>Emotional Impact:</h4>
+                                <ul>
+                                    <li>Makes your friend feel guilty or pressured instead of valued</li>
+                                    <li>May cause more avoidance rather than bringing them closer</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="message-box improved">
+                            <div class="message-header">
+                                <span class="emoji">💡</span>
+                                <h3>AI-Guided Solution</h3>
+                            </div>
+                            <p class="message-text">"Hey, I know life gets busy, but I really miss catching up. Hope you're doing okay—let's chat soon!"</p>
+                        </div>
+
+                        <div class="outcome">
+                            <span class="emoji">❤️</span>
+                            <h3>Outcome</h3>
+                            <p>Your friend feels valued and is more likely to reconnect.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-slide">
+                    <div class="slide-content">
+                        <div class="slide-header">
+                            <span class="emoji">🎠</span>
+                            <h3>Parenting Conflict Over Responsibilities</h3>
+                        </div>
+                        <div class="slide-subtitle">"Tired of Reminding Your Child? Try This Approach."</div>
+                        
+                        <div class="message-box poor">
+                            <div class="message-header">
+                                <span class="emoji">💬</span>
+                                <h3>Frustrated Message</h3>
+                            </div>
+                            <p class="message-text">"I'm so tired of reminding you—why can't you just do what I ask?!"</p>
+                            <div class="emotional-impact">
+                                <span class="emoji">🔴</span>
+                                <h4>Emotional Impact:</h4>
+                                <ul>
+                                    <li>Feels like nagging, leading to resistance</li>
+                                    <li>Creates resentment instead of responsibility</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="message-box improved">
+                            <div class="message-header">
+                                <span class="emoji">💡</span>
+                                <h3>AI-Guided Solution</h3>
+                            </div>
+                            <p class="message-text">"I know we both have a lot going on, but it would mean a lot if we could work together on this. What's a way we can make this easier for both of us?"</p>
+                        </div>
+
+                        <div class="outcome">
+                            <span class="emoji">❤️</span>
+                            <h3>Outcome</h3>
+                            <p>Your child feels respected and more willing to cooperate.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-slide">
+                    <div class="slide-content">
+                        <div class="slide-header">
+                            <span class="emoji">🎠</span>
+                            <h3>Feeling Unappreciated in a Relationship</h3>
+                        </div>
+                        <div class="slide-subtitle">"Feeling Unappreciated? Here's How to Express It."</div>
+                        
+                        <div class="message-box poor">
+                            <div class="message-header">
+                                <span class="emoji">💬</span>
+                                <h3>Frustrated Message</h3>
+                            </div>
+                            <p class="message-text">"I do everything for you, and you don't even notice!"</p>
+                            <div class="emotional-impact">
+                                <span class="emoji">🔴</span>
+                                <h4>Emotional Impact:</h4>
+                                <ul>
+                                    <li>Sounds accusatory, making your partner defensive</li>
+                                    <li>Creates tension instead of appreciation</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="message-box improved">
+                            <div class="message-header">
+                                <span class="emoji">💡</span>
+                                <h3>AI-Guided Solution</h3>
+                            </div>
+                            <p class="message-text">"I love doing things for us, but I sometimes feel unnoticed. It would mean a lot if we took a moment to appreciate each other more."</p>
+                        </div>
+
+                        <div class="outcome">
+                            <span class="emoji">❤️</span>
+                            <h3>Outcome</h3>
+                            <p>Your partner feels encouraged to show appreciation more often.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-slide">
+                    <div class="slide-content">
+                        <div class="slide-header">
+                            <span class="emoji">🎠</span>
+                            <h3>Dealing with Conflict Without Making It Worse</h3>
+                        </div>
+                        <div class="slide-subtitle">"Want to Resolve Conflict Instead of Escalate It?"</div>
+                        
+                        <div class="message-box poor">
+                            <div class="message-header">
+                                <span class="emoji">💬</span>
+                                <h3>Frustrated Message</h3>
+                            </div>
+                            <p class="message-text">"You always overreact! Why do you make everything such a big deal?"</p>
+                            <div class="emotional-impact">
+                                <span class="emoji">🔴</span>
+                                <h4>Emotional Impact:</h4>
+                                <ul>
+                                    <li>Invalidates the other person's feelings, making them shut down</li>
+                                    <li>Creates a bigger argument instead of a solution</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="message-box improved">
+                            <div class="message-header">
+                                <span class="emoji">💡</span>
+                                <h3>AI-Guided Solution</h3>
+                            </div>
+                            <p class="message-text">"I can tell this is really important to you. Can we talk about it so I can understand better?"</p>
+                        </div>
+
+                        <div class="outcome">
+                            <span class="emoji">❤️</span>
+                            <h3>Outcome</h3>
+                            <p>The conversation shifts toward problem-solving instead of conflict.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-nav">
+                <button class="nav-btn prev">←</button>
+                <div class="nav-dots"></div>
+                <button class="nav-btn next">→</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="successAnimation">
+        <div class="heart-container">
+            <div class="heart"></div>
+        </div>
+        <div class="success-message">
+            <h2>Welcome to Connectly!</h2>
+            <p>We're excited to help you build stronger relationships.</p>
+            <p>Check your email for next steps.</p>
+            <button class="share-button" onclick="sharePage()">Share with a Friend</button>
+        </div>
+        <button class="close-button">×</button>
+    </div>
+
+    <script>
+        function showSuccessAnimation() {
+            const successAnimation = document.getElementById('successAnimation');
+            const successMessage = document.querySelector('.success-message');
+            const closeButton = document.querySelector('.close-button');
+            const heartContainer = document.querySelector('.heart-container');
+
+            successAnimation.classList.add('active');
+            setTimeout(() => {
+                successMessage.classList.add('visible');
+                closeButton.classList.add('visible');
+                heartContainer.classList.add('visible');
+            }, 100);
+        }
+
+        function hideSuccessAnimation() {
+            const successAnimation = document.getElementById('successAnimation');
+            const successMessage = document.querySelector('.success-message');
+            const closeButton = document.querySelector('.close-button');
+            const heartContainer = document.querySelector('.heart-container');
+
+            successMessage.classList.remove('visible');
+            closeButton.classList.remove('visible');
+            heartContainer.classList.remove('visible');
+
+            setTimeout(() => {
+                successAnimation.classList.remove('active');
+            }, 500);
+        }
+
+        async function sharePage() {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'Connectly - Build Better Relationships',
+                        text: 'Join me on Connectly - the better way to build relationships!',
+                        url: window.location.href
+                    });
+                } catch (error) {
+                    console.log('Error sharing:', error);
+                    // Fallback to clipboard copy
+                    copyToClipboard();
+                }
+            } else {
+                // Fallback to clipboard copy
+                copyToClipboard();
+            }
+        }
+
+        function copyToClipboard() {
+            navigator.clipboard.writeText(window.location.href)
+                .then(() => {
+                    const shareButton = document.querySelector('.share-button');
+                    const originalText = shareButton.textContent;
+                    shareButton.textContent = 'Link Copied!';
+                    setTimeout(() => {
+                        shareButton.textContent = originalText;
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Failed to copy:', err);
+                });
+        }
+
+        // Handle form submission
+        document.querySelector('.waitlist-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const form = this;
+            const submitButton = form.querySelector('button[type="submit"]');
+            const email = form.querySelector('input[type="email"]').value;
+            
+            // Disable submit button and show loading state
+            submitButton.disabled = true;
+            submitButton.classList.add('loading');
+            
+            try {
+                const response = await fetch('https://formspree.io/f/mjkyvdal', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email
+                    })
+                });
+
+                if (response.ok) {
+                    showSuccessAnimation();
+                    form.reset();
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Sorry, there was an error submitting the form. Please try again.');
+            } finally {
+                // Re-enable submit button and remove loading state
+                submitButton.disabled = false;
+                submitButton.classList.remove('loading');
+            }
+        });
+
+        // Handle close button
+        document.querySelector('.close-button').addEventListener('click', hideSuccessAnimation);
+
+        // Carousel functionality
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelector('.nav-dots');
+        const prevBtn = document.querySelector('.nav-btn.prev');
+        const nextBtn = document.querySelector('.nav-btn.next');
+        let currentSlide = 0;
+        let slideInterval;
+
+        // Create dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('nav-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(index));
+            dots.appendChild(dot);
+        });
+
+        function updateSlides() {
+            slides.forEach((slide, index) => {
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+
+            // Update dots
+            document.querySelectorAll('.nav-dot').forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlides();
+            resetInterval();
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateSlides();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateSlides();
+        }
+
+        function resetInterval() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+
+        // Event listeners
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            resetInterval();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            resetInterval();
+        });
+
+        // Start automatic rotation
+        slideInterval = setInterval(nextSlide, 5000);
+    </script>
+</body>
 </html>
