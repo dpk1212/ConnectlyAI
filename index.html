@@ -54,20 +54,20 @@
         :root {
             /* Gradient & color variables */
             --headline-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            --main-gradient: linear-gradient(135deg, rgba(138, 35, 135, 0.95) 0%, rgba(233, 64, 87, 0.95) 50%, rgba(242, 113, 33, 0.95) 100%);
-            --button-gradient: linear-gradient(to right, #e94057, #f27121);
+            --main-gradient: linear-gradient(180deg, #cf3b95 0%, #9a36c4 50%, #6849db 100%);
+            --button-gradient: linear-gradient(to right, #cf3b95, #8a48dd);
             
             /* Colors */
-            --primary-color: #e94057;
-            --secondary-color: #8a2387;
-            --accent-color: #f27121;
+            --primary-color: #9a36c4;
+            --secondary-color: #cf3b95;
+            --accent-color: #6849db;
             --text-color: #f5f7fa;
             --bg-color: #121212;
             
             /* Shadows and effects */
             --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            --button-shadow: 0 4px 15px rgba(233, 64, 87, 0.5);
-            --heart-glow: 0 0 15px rgba(233, 64, 87, 0.8);
+            --button-shadow: 0 4px 15px rgba(154, 54, 196, 0.5);
+            --heart-glow: 0 0 15px rgba(207, 59, 149, 0.8);
             
             /* Animations and transitions */
             --transition-fast: 0.3s ease;
@@ -334,6 +334,29 @@
             top: 0;
             left: 0;
             pointer-events: none;
+        }
+
+        .heart-particle {
+            position: absolute;
+            background: rgba(154, 54, 196, 0.6);
+            clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
+            animation: float 10s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.7;
+            }
         }
 
         .heart-particle {
@@ -666,9 +689,8 @@
         }
 
         .feature-card:hover {
-            transform: translateY(-10px) translateZ(5px) scale(1.02);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 15px 35px rgba(154, 54, 196, 0.3);
         }
 
         .feature-card::before {
@@ -690,9 +712,12 @@
 
         .feature-icon {
             font-size: 2.5rem;
-            color: var(--accent-color);
-            margin-bottom: 1.5rem;
-            filter: drop-shadow(0 5px 15px rgba(233, 64, 87, 0.4));
+            margin-bottom: 1rem;
+            background: var(--button-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 2px 5px rgba(154, 54, 196, 0.5));
         }
 
         .feature-title {
@@ -1381,14 +1406,18 @@
         }
 
         .trust-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 15px 35px rgba(154, 54, 196, 0.3);
         }
 
         .trust-icon {
             font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            filter: drop-shadow(0 5px 15px rgba(236, 72, 153, 0.4));
+            margin-bottom: 1rem;
+            background: var(--button-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 2px 5px rgba(154, 54, 196, 0.5));
         }
 
         .trust-title {
@@ -1447,7 +1476,7 @@
             .trust-icon {
                 font-size: 2rem;
                 margin-bottom: 1rem;
-                filter: drop-shadow(0 5px 15px rgba(233, 64, 87, 0.6));
+                filter: drop-shadow(0 5px 15px rgba(154, 54, 196, 0.6));
             }
             
             .trust-text {
@@ -1714,12 +1743,12 @@
         
         .button:hover, .button:focus {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(233, 64, 87, 0.6);
+            box-shadow: 0 8px 20px rgba(154, 54, 196, 0.6);
         }
         
         .button:active {
             transform: translateY(-1px);
-            box-shadow: 0 5px 15px rgba(233, 64, 87, 0.4);
+            box-shadow: 0 5px 15px rgba(154, 54, 196, 0.4);
         }
         
         /* Form elements with improved styling */
@@ -1739,12 +1768,27 @@
         input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(233, 64, 87, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 0 3px rgba(154, 54, 196, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.1);
             background: rgba(255, 255, 255, 0.2);
         }
         
         ::placeholder {
             color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Update heart icon glow effect */
+        .heart-icon {
+            width: 80px;
+            height: 80px;
+            filter: drop-shadow(0 0 20px rgba(207, 59, 149, 0.9));
+            animation: pulse 1.5s ease-in-out infinite;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        /* Heart icon fill color for SVG */
+        .heart-icon path {
+            fill: url(#heartGradient);
         }
     </style>
 </head>
@@ -2577,6 +2621,137 @@
             // Recreate particles periodically
             setTimeout(createHeartParticles, 2000);
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... existing code ...
+            
+            // Create multiple hearts
+            function createHeartParticles() {
+                const numHearts = 15;
+                const heartContainer = document.querySelector('.logo-inner');
+                
+                for (let i = 0; i < numHearts; i++) {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart-particle');
+                    
+                    // Random size between 5px and 15px
+                    const size = Math.random() * 10 + 5;
+                    heart.style.width = `${size}px`;
+                    heart.style.height = `${size}px`;
+                    
+                    // Random position around the main heart
+                    const angle = Math.random() * Math.PI * 2; // Random angle in radians
+                    const distance = Math.random() * 150 + 30; // Random distance from center
+                    const x = Math.cos(angle) * distance;
+                    const y = Math.sin(angle) * distance;
+                    
+                    heart.style.left = `calc(50% + ${x}px)`;
+                    heart.style.top = `calc(50% + ${y}px)`;
+                    
+                    // Random opacity between 0.3 and 0.8
+                    heart.style.opacity = Math.random() * 0.5 + 0.3;
+                    
+                    // Random color matching our gradient
+                    const colors = [
+                        'rgba(207, 59, 149, 0.6)',  // Pink
+                        'rgba(154, 54, 196, 0.6)',  // Purple
+                        'rgba(104, 73, 219, 0.6)',  // Blue
+                        'rgba(255, 255, 255, 0.6)'  // White for occasional contrast
+                    ];
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    heart.style.background = randomColor;
+                    
+                    // Random animation duration between 5 and 15 seconds
+                    const duration = Math.random() * 10 + 5;
+                    heart.style.animationDuration = `${duration}s`;
+                    
+                    // Random delay between 0 and 5 seconds
+                    const delay = Math.random() * 5;
+                    heart.style.animationDelay = `${delay}s`;
+                    
+                    heartContainer.appendChild(heart);
+                }
+            }
+            
+            // Call the function when the page loads
+            createHeartParticles();
+        });
+
+        // Clean, complete, single script with updated colors
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation for the heart icon
+            const heart = document.querySelector('.heart-icon');
+            
+            function animateHeart() {
+                // Add the animation class
+                heart.classList.add('heartbeat');
+                
+                // Remove the animation class after the animation is complete
+                setTimeout(() => {
+                    heart.classList.remove('heartbeat');
+                    // Wait a bit before adding the animation again
+                    setTimeout(animateHeart, 1000);
+                }, 1000);
+            }
+            
+            // Start the animation
+            animateHeart();
+            
+            // Create multiple hearts
+            function createHeartParticles() {
+                const numHearts = 15;
+                const heartContainer = document.querySelector('.logo-inner');
+                
+                // Clear existing heart particles
+                const existingParticles = document.querySelectorAll('.heart-particle');
+                existingParticles.forEach(particle => particle.remove());
+                
+                for (let i = 0; i < numHearts; i++) {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart-particle');
+                    
+                    // Random size between 5px and 15px
+                    const size = Math.random() * 10 + 5;
+                    heart.style.width = `${size}px`;
+                    heart.style.height = `${size}px`;
+                    
+                    // Random position around the main heart
+                    const angle = Math.random() * Math.PI * 2; // Random angle in radians
+                    const distance = Math.random() * 150 + 30; // Random distance from center
+                    const x = Math.cos(angle) * distance;
+                    const y = Math.sin(angle) * distance;
+                    
+                    heart.style.left = `calc(50% + ${x}px)`;
+                    heart.style.top = `calc(50% + ${y}px)`;
+                    
+                    // Random opacity between 0.3 and 0.8
+                    heart.style.opacity = Math.random() * 0.5 + 0.3;
+                    
+                    // Random color matching our new pink/purple/blue gradient
+                    const colors = [
+                        'rgba(207, 59, 149, 0.6)',  // Pink
+                        'rgba(154, 54, 196, 0.6)',  // Purple
+                        'rgba(104, 73, 219, 0.6)',  // Blue
+                        'rgba(255, 255, 255, 0.6)'  // White for occasional contrast
+                    ];
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    heart.style.background = randomColor;
+                    
+                    // Random animation duration between 5 and 15 seconds
+                    const duration = Math.random() * 10 + 5;
+                    heart.style.animationDuration = `${duration}s`;
+                    
+                    // Random delay between 0 and 5 seconds
+                    const delay = Math.random() * 5;
+                    heart.style.animationDelay = `${delay}s`;
+                    
+                    heartContainer.appendChild(heart);
+                }
+            }
+            
+            // Call the function when the page loads
+            createHeartParticles();
+        });
     </script>
 
     <!-- Trust and Privacy Section -->
