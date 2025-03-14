@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-H14EYNPJH5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-H14EYNPJH5');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - HeartGlowAI</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #a855f7;
+            --primary-light: #b19cd9;
+            --primary-dark: #9333ea;
+            --accent-color: #e94057;
+            --accent-light: #ff6bcb;
+            --text-color: #FFFFFF;
+            --dark-text: #333333;
+            --light-text: #E2E8F0;
+            --background-overlay: rgba(0, 0, 0, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.15);
+            --card-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            --glassmorphism: rgba(255, 255, 255, 0.25);
+            --transition-slow: 0.6s ease;
+            --transition-normal: 0.3s ease;
+            --border-radius: 16px;
+            --button-radius: 25px;
+            --input-radius: 25px;
+            --headline-gradient: linear-gradient(135deg, #8a2387, #e94057);
+            --main-gradient: linear-gradient(135deg, #8a2387, #e94057, #f27121);
+            --button-gradient: linear-gradient(135deg, #8a2387, #e94057);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: var(--main-gradient);
+            padding-bottom: 2rem;
+        }
+
+        /* Utility Classes */
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.85rem 2rem;
+            background: var(--button-gradient);
+            color: white;
+            border: none;
+            border-radius: var(--button-radius);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform var(--transition-normal), 
+                        box-shadow var(--transition-normal);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            letter-spacing: 0.025em;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header */
+        .header {
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .logo {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1rem;
+            position: relative;
+            animation: fadeIn 1s ease forwards;
+            filter: drop-shadow(0 0 15px rgba(233, 64, 87, 0.9));
+        }
+
+        .logo-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: float 3s ease-in-out infinite;
+            perspective: 1000px;
+        }
+
+        .logo-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, var(--accent-color), #8a2387);
+            box-shadow: 0 10px 25px rgba(233, 64, 87, 0.5),
+                        inset 0 -5px 10px rgba(0, 0, 0, 0.2),
+                        inset 0 5px 10px rgba(255, 255, 255, 0.2);
+            animation: glow 2s infinite ease-in-out alternate;
+        }
+
+        .logo-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            color: white;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            animation: glow 2s infinite ease-in-out;
+        }
+
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+            letter-spacing: 0.05em;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Main content */
+        .policy-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .policy-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .policy-card h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .policy-card p {
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .policy-card ul, .policy-card ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .policy-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .policy-card strong {
+            font-weight: 600;
+            color: white;
+        }
+
+        .policy-date {
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .back-link {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .back-link a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .back-link a:hover {
+            color: var(--accent-light);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-5px) rotate(3deg);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% { 
+                text-shadow: 0 0 10px rgba(233, 64, 87, 0.5);
+            }
+            50% { 
+                text-shadow: 0 0 20px rgba(233, 64, 87, 0.8);
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .policy-card {
+                padding: 1.5rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .policy-card h2 {
+                font-size: 1.5rem;
+            }
+            
+            .policy-card h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Floating hearts background */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.3);
+            animation: float-heart 10s infinite ease-in-out;
+        }
+
+        @keyframes float-heart {
+            0% { 
+                transform: translateY(100vh) scale(0.5); 
+                opacity: 0; 
+            }
+            50% { 
+                opacity: 0.8; 
+            }
+            100% { 
+                transform: translateY(-20vh) scale(1); 
+                opacity: 0; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="floating-hearts">
+        <!-- Hearts will be added with JavaScript -->
+    </div>
+    
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">
+                <div class="logo-inner">
+                    <div class="logo-circle"></div>
+                    <div class="logo-heart">❤️</div>
+                </div>
+            </a>
+            <h1 class="page-title">Privacy Policy</h1>
+            <p class="policy-date">Effective Date: June 15, 2023</p>
+        </header>
+        
+        <div class="policy-card">
+            <p>Welcome to HeartGlowAI. Your privacy is our priority. This Privacy Policy explains how we collect, use, and protect your information when you use our website and services. By using HeartGlowAI, you consent to the practices outlined in this policy.</p>
+            
+            <h3>1. Information We Collect</h3>
+            <p><strong>a. Information You Provide</strong></p>
+            <p>When you use HeartGlowAI, we may collect:</p>
+            <ul>
+                <li><strong>Account Information</strong> – Your name, email address, and any other details required for sign-up.</li>
+                <li><strong>User-Submitted Content</strong> – Messages you input for AI assistance.</li>
+                <li><strong>Payment Information</strong> – If you subscribe to a paid plan, we may collect billing details (processed securely via third-party providers).</li>
+            </ul>
+            
+            <p><strong>b. Information Collected Automatically</strong></p>
+            <p>When you visit our website or use our services, we automatically collect:</p>
+            <ul>
+                <li><strong>Usage Data</strong> – Pages visited, time spent, and interactions.</li>
+                <li><strong>Device Information</strong> – Browser type, IP address, operating system.</li>
+                <li><strong>Cookies & Tracking Technologies</strong> – We use cookies to enhance user experience and track preferences.</li>
+            </ul>
+            
+            <h3>2. How We Use Your Information</h3>
+            <p>We use your information to:</p>
+            <ul>
+                <li>Provide and improve HeartGlowAI's services.</li>
+                <li>Personalize AI-generated responses.</li>
+                <li>Analyze user trends to enhance features.</li>
+                <li>Process transactions securely.</li>
+                <li>Communicate with you about updates, offers, or important notices.</li>
+                <li>Ensure security and prevent fraudulent activities.</li>
+            </ul>
+            
+            <h3>3. How We Protect Your Information</h3>
+            <p>We take your privacy seriously and implement industry-standard measures to safeguard your data:</p>
+            <ul>
+                <li><strong>Encryption:</strong> All sensitive data is encrypted in transit and at rest.</li>
+                <li><strong>Secure Access:</strong> Only authorized personnel can access user data.</li>
+                <li><strong>Anonymization:</strong> AI responses and analytics are processed without storing identifiable user inputs.</li>
+                <li><strong>Third-Party Compliance:</strong> We only work with trusted, secure third-party providers.</li>
+            </ul>
+            
+            <h3>4. Sharing of Information</h3>
+            <p>We do not sell or rent your personal information. However, we may share data in the following cases:</p>
+            <ul>
+                <li><strong>Service Providers:</strong> We use trusted third-party tools (e.g., payment processors, analytics services) that adhere to strict security policies.</li>
+                <li><strong>Legal Compliance:</strong> If required by law, we may disclose data to comply with legal obligations or protect against fraudulent activities.</li>
+                <li><strong>Business Transfers:</strong> In case of a merger or acquisition, user data may be transferred with adequate protections.</li>
+            </ul>
+            
+            <h3>5. Your Privacy Choices & Rights</h3>
+            <ul>
+                <li><strong>Opt-Out:</strong> You can unsubscribe from marketing emails at any time.</li>
+                <li><strong>Delete Your Data:</strong> You may request account deletion and data removal by contacting us.</li>
+                <li><strong>Manage Cookies:</strong> Adjust cookie settings in your browser preferences.</li>
+            </ul>
+            
+            <h3>6. Children's Privacy</h3>
+            <p>HeartGlowAI is not intended for children under 13. We do not knowingly collect personal data from minors. If you believe a child has provided us with information, please contact us immediately.</p>
+            
+            <h3>7. Updates to This Policy</h3>
+            <p>We may update this Privacy Policy periodically. Changes will be reflected on this page, and we encourage you to review it regularly. Significant updates will be communicated to registered users.</p>
+        </div>
+        
+        <div class="back-link">
+            <a href="index.html" class="btn">Return to Homepage</a>
+        </div>
+    </div>
+    
+    <script>
+        // Create floating hearts in the background
+        function createFloatingHearts() {
+            const container = document.querySelector('.floating-hearts');
+            const count = window.innerWidth < 768 ? 8 : 15;
+            
+            for (let i = 0; i < count; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = `${10 + Math.random() * 80}%`;
+                heart.style.opacity = 0.1 + Math.random() * 0.2;
+                heart.style.fontSize = `${0.5 + Math.random() * 1}rem`;
+                
+                // Random animations
+                const duration = 8 + Math.random() * 12;
+                heart.style.animation = `float-heart ${duration}s ease-in-out infinite`;
+                heart.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(heart);
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingHearts();
+            
+            // Animate elements
+            document.querySelectorAll('.policy-card').forEach((card, index) => {
+                card.style.animationDelay = `${0.2 * index}s`;
+            });
+        });
+    </script>
+</body>
+</html> 
