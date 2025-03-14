@@ -119,7 +119,7 @@
         }
 
         .btn:hover {
-            transform: translateY(-3px) translateZ(10px) scale(1.05);
+            transform: translateY(-3px) translateZ(5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
@@ -1310,6 +1310,105 @@
                 -webkit-overflow-scrolling: touch;
             }
         }
+        
+        /* Trust and Privacy Section Styles */
+        .trust-privacy {
+            padding: 6rem 2rem;
+            background: rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .trust-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .trust-card {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            width: 100%;
+            max-width: 500px;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+        }
+
+        .trust-card:hover {
+            transform: translateY(-5px) translateZ(5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .trust-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 5px 15px rgba(236, 72, 153, 0.4));
+        }
+
+        .trust-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: white;
+            letter-spacing: 0.025em;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .trust-description {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            letter-spacing: 0.025em;
+            line-height: 1.6;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .trust-footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: var(--input-radius);
+            backdrop-filter: blur(5px);
+        }
+
+        @media (max-width: 768px) {
+            .trust-cards {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+            
+            .trust-card {
+                max-width: 100%;
+                padding: 1.5rem;
+            }
+            
+            .trust-title {
+                font-size: 1.3rem;
+            }
+            
+            .trust-icon {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+            }
+            
+            .trust-footer {
+                font-size: 0.85rem;
+                padding: 0.75rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1862,5 +1961,29 @@
             }, 2000);
         });
     </script>
+
+    <!-- Trust and Privacy Section -->
+    <section class="trust-privacy">
+        <div class="container">
+            <h2 class="section-title">Your Trust Matters</h2>
+            <p class="section-subtitle">We're committed to transparency and building a service you can trust.</p>
+            
+            <div class="trust-cards">
+                <div class="trust-card">
+                    <div class="trust-icon">🔒</div>
+                    <h3 class="trust-title">Data Protection</h3>
+                    <p class="trust-description">Your data is securely stored and protected. We use industry-standard encryption and security practices to safeguard your information. Your privacy is our priority.</p>
+                </div>
+                
+                <div class="trust-card">
+                    <div class="trust-icon">💯</div>
+                    <h3 class="trust-title">Free Beta Access</h3>
+                    <p class="trust-description">The HeartGlowAI beta is completely free. You will not be charged at any point during the beta period. We're focused on building something you'll love before considering any paid features.</p>
+                </div>
+            </div>
+            
+            <p class="trust-footer">By joining our waitlist, you agree to our <a href="#" class="privacy-link">Privacy Policy</a>. We will never sell your personal information to third parties.</p>
+        </div>
+    </section>
 </body>
 </html>
