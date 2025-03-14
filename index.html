@@ -8,7 +8,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <!-- GSAP for animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
@@ -30,6 +30,7 @@
             --transition-slow: 0.6s ease;
             --transition-normal: 0.3s ease;
             --border-radius: 12px;
+            --headline-gradient: linear-gradient(135deg, #e94057, #f27121);
         }
 
         * {
@@ -60,6 +61,11 @@
             font-weight: 700;
             display: inline-block;
             position: relative;
+            background: var(--headline-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
         }
 
         .highlight::after {
@@ -82,6 +88,7 @@
             color: white;
             border: none;
             border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
             font-weight: 600;
             text-decoration: none;
             transition: transform var(--transition-normal), 
@@ -90,10 +97,12 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .btn:hover {
-            transform: translateY(-3px);
+            transform: translateY(-3px) translateZ(10px);
             box-shadow: 0 10px 25px rgba(98, 70, 234, 0.3);
         }
 
@@ -119,14 +128,21 @@
         }
 
         .section-title {
+            font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
             text-align: center;
             color: var(--dark-text);
+            background: var(--headline-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
         }
 
         .section-subtitle {
+            font-family: 'Inter', sans-serif;
             font-size: 1.2rem;
             color: #666;
             text-align: center;
@@ -147,6 +163,7 @@
                         url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             overflow: hidden;
         }
 
@@ -157,7 +174,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, rgba(98, 70, 234, 0.2), transparent 70%);
+            background: linear-gradient(135deg, rgba(138, 35, 135, 0.5), rgba(242, 113, 33, 0.5)), 
+                          radial-gradient(circle at center, rgba(98, 70, 234, 0.2), transparent 70%);
             z-index: 1;
         }
 
@@ -189,6 +207,18 @@
             position: relative;
             width: 100%;
             height: 100%;
+            transform-style: preserve-3d;
+            animation: float 3s ease-in-out infinite;
+            perspective: 1000px;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(5deg);
+            }
         }
 
         .logo-circle {
@@ -199,7 +229,9 @@
             height: 100%;
             border-radius: 50%;
             background: radial-gradient(circle at center, var(--primary-light), var(--primary-color));
-            box-shadow: 0 10px 25px rgba(98, 70, 234, 0.3);
+            box-shadow: 0 10px 25px rgba(98, 70, 234, 0.3),
+                        inset 0 -5px 10px rgba(0, 0, 0, 0.2),
+                        inset 0 5px 10px rgba(255, 255, 255, 0.2);
         }
 
         .logo-heart {
@@ -209,9 +241,21 @@
             transform: translate(-50%, -50%);
             font-size: 4rem;
             color: white;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
         }
 
         .hero-title {
+            font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
             font-weight: 700;
             line-height: 1.2;
@@ -219,6 +263,7 @@
             opacity: 0;
             transform: translateY(20px);
             animation: fadeIn 1s ease forwards 0.3s;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .hero-title span {
@@ -226,6 +271,7 @@
         }
 
         .hero-subtitle {
+            font-family: 'Inter', sans-serif;
             font-size: 1.5rem;
             font-weight: 400;
             margin-bottom: 2.5rem;
@@ -236,6 +282,7 @@
             opacity: 0;
             transform: translateY(20px);
             animation: fadeIn 1s ease forwards 0.6s;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .waitlist-container {
@@ -253,6 +300,8 @@
             border-radius: 50px;
             padding: 0.5rem;
             box-shadow: var(--card-shadow);
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .waitlist-form input {
@@ -261,12 +310,16 @@
             border: none;
             background: transparent;
             color: white;
+            font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
+            font-weight: 500;
             outline: none;
         }
 
         .waitlist-form input::placeholder {
             color: rgba(255, 255, 255, 0.8);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
         }
 
         .waitlist-form button {
@@ -275,10 +328,19 @@
             border-radius: 25px;
             background: var(--primary-color);
             color: white;
+            font-family: 'Montserrat', sans-serif;
             font-weight: 600;
+            font-size: 1rem;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .waitlist-form button:hover {
+            transform: translateY(-2px) translateZ(10px);
+            box-shadow: 0 10px 20px rgba(98, 70, 234, 0.4);
         }
 
         .waitlist-form button:disabled {
@@ -332,8 +394,31 @@
             padding-right: 3rem;
         }
 
-        .waitlist-form button:hover {
-            transform: translateY(-2px);
+        .trust-signals {
+            margin-top: 1.2rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+        }
+
+        .privacy-link {
+            color: #f27121;
+            text-decoration: underline;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .privacy-link:hover {
+            color: #e94057;
+        }
+
+        .waitlist-counter {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 0.4rem 1rem;
+            display: inline-block;
+            margin-top: 0.8rem;
+            font-weight: 500;
         }
 
         .scroll-indicator {
@@ -394,14 +479,17 @@
             border-radius: var(--border-radius);
             padding: 2rem;
             box-shadow: var(--card-shadow);
-            transition: transform var(--transition-normal);
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
             position: relative;
             overflow: hidden;
             z-index: 1;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) translateZ(5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
 
         .feature-card::before {
@@ -428,6 +516,7 @@
         }
 
         .feature-title {
+            font-family: 'Poppins', sans-serif;
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 1rem;
@@ -534,6 +623,7 @@
         .success-message h2 {
             margin-bottom: 1rem;
             font-size: 2rem;
+            font-family: 'Playfair Display', serif;
         }
 
         .success-message p {
@@ -573,11 +663,14 @@
             justify-content: center;
             margin-top: 1rem;
             transition: var(--transition-normal);
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .share-button:hover {
             background: #ff374f;
-            transform: translateY(-2px);
+            transform: translateY(-2px) translateZ(5px);
+            box-shadow: 0 10px 20px rgba(255, 84, 112, 0.3);
         }
 
         .share-button svg {
@@ -608,10 +701,13 @@
             width: 100%;
             max-width: 500px;
             transition: transform var(--transition-normal);
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .message-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) translateZ(5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
 
         .message-header {
@@ -621,6 +717,7 @@
         }
 
         .message-title {
+            font-family: 'Poppins', sans-serif;
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
@@ -717,6 +814,14 @@
             .message-cards {
                 flex-direction: column;
                 align-items: center;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1rem;
             }
         }
 
@@ -826,6 +931,8 @@
             width: 90%;
             color: white;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
         
         .survey-container h2 {
@@ -833,6 +940,7 @@
             color: var(--accent-color);
             font-size: 2rem;
             text-align: center;
+            font-family: 'Playfair Display', serif;
         }
         
         .survey-intro {
@@ -857,6 +965,7 @@
         .form-group label {
             font-weight: 500;
             color: var(--light-text);
+            font-family: 'Montserrat', sans-serif;
         }
         
         .survey-form select, 
@@ -866,12 +975,13 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             background: rgba(255, 255, 255, 0.1);
             color: white;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
         
         .survey-form select option {
             background: var(--primary-dark);
             color: white;
+            font-family: 'Montserrat', sans-serif;
         }
         
         .radio-group {
@@ -899,11 +1009,15 @@
             cursor: pointer;
             margin-top: 1rem;
             transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
         
         .survey-submit:hover {
             background: #ff3a5c;
-            transform: translateY(-2px);
+            transform: translateY(-2px) translateZ(5px);
+            box-shadow: 0 10px 20px rgba(255, 84, 112, 0.3);
         }
         
         @media (max-width: 768px) {
@@ -942,6 +1056,10 @@
                         <div class="spinning-heart"></div>
                     </button>
                 </form>
+                <div class="trust-signals">
+                    <p>We respect your privacy. <a href="#" class="privacy-link">Privacy Policy</a></p>
+                    <div class="waitlist-counter">Join 5,000+ others on the waitlist!</div>
+                </div>
                 <p class="beta-note">Limited spots available. Early access members receive lifetime benefits.</p>
             </div>
         </div>
