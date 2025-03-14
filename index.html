@@ -1030,11 +1030,13 @@
             font-family: 'Montserrat', sans-serif;
             transform-style: preserve-3d;
             perspective: 1000px;
-            position: absolute;
+            position: fixed;
             bottom: 1.5rem;
-            left: 2.5rem;
-            right: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
             width: calc(100% - 5rem);
+            max-width: 500px;
+            z-index: 10;
         }
         
         .survey-submit:hover {
@@ -1045,7 +1047,7 @@
         
         @media (max-width: 768px) {
             .survey-container {
-                padding: 2rem 1.5rem 5rem;
+                padding: 2rem 1.5rem 6rem;
                 max-height: 90vh;
                 margin: 20px 0;
             }
@@ -1056,9 +1058,10 @@
             }
             
             .survey-submit {
-                left: 1.5rem;
-                right: 1.5rem;
+                left: 50%;
+                transform: translateX(-50%);
                 width: calc(100% - 3rem);
+                max-width: 90%;
                 bottom: 1rem;
             }
             
@@ -1233,9 +1236,9 @@
             <div class="next-steps">
                 <h3>What happens next:</h3>
                 <ol>
-                    <li>Check your inbox for your personalized welcome guide</li>
-                    <li>Get early access to our AI message crafting tools</li>
-                    <li>Provide feedback that shapes the future of relationship technology</li>
+                    <li>Check your inbox because when we launch you will receive a personalized guide</li>
+                    <li>You will receive exclusive early access to our AI messaging tools</li>
+                    <li>You will be able to provide direct feedback to shape the future of relationship technology</li>
                 </ol>
             </div>
             <div class="success-actions">
