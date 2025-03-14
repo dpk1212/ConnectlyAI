@@ -474,7 +474,7 @@
             position: relative;
             width: 100px;
             height: 100px;
-            margin-bottom: 2rem;
+            margin: 0 auto 2rem;
             animation: pulse 1.5s ease-in-out infinite;
         }
 
@@ -793,6 +793,129 @@
             background: white;
             color: var(--primary-color);
         }
+
+        /* Survey page styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .survey-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            padding: 2.5rem;
+            max-width: 550px;
+            width: 90%;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .survey-container h2 {
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+            font-size: 2rem;
+            text-align: center;
+        }
+        
+        .survey-intro {
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .survey-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .form-group label {
+            font-weight: 500;
+            color: var(--light-text);
+        }
+        
+        .survey-form select, 
+        .survey-form input[type="text"] {
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .survey-form select option {
+            background: var(--primary-dark);
+            color: white;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        
+        .survey-submit {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .survey-submit:hover {
+            background: #ff3a5c;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .survey-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -972,6 +1095,78 @@
         </div>
     </div>
 
+    <!-- Intermediate Survey Page -->
+    <div id="surveyPage" class="modal-overlay">
+        <div class="survey-container">
+            <h2>Help Us Build What You Want</h2>
+            <p class="survey-intro">Thank you for joining! Just a few quick questions to help us better understand your needs.</p>
+            
+            <form id="surveyForm" action="https://formspree.io/f/xeoaoqqy" method="POST" class="survey-form">
+                <input type="hidden" id="userEmail" name="email">
+                
+                <div class="form-group">
+                    <label for="relationshipType">Which relationship are you most looking to improve?</label>
+                    <select id="relationshipType" name="relationshipType" required>
+                        <option value="" disabled selected>Please select...</option>
+                        <option value="romantic">Romantic relationship</option>
+                        <option value="friendship">Friendship</option>
+                        <option value="family">Family relationship</option>
+                        <option value="work">Work relationship</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="painPoint">What's your biggest communication challenge?</label>
+                    <select id="painPoint" name="painPoint" required>
+                        <option value="" disabled selected>Please select...</option>
+                        <option value="express">Expressing my thoughts/feelings clearly</option>
+                        <option value="understand">Understanding what others really mean</option>
+                        <option value="conflict">Navigating conflict or difficult conversations</option>
+                        <option value="reconnect">Reconnecting after distance or tension</option>
+                        <option value="interest">Keeping conversations interesting</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>How did you hear about us?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="referral" value="social"> Social Media</label>
+                        <label><input type="radio" name="referral" value="friend"> Friend/Family</label>
+                        <label><input type="radio" name="referral" value="search"> Search Engine</label>
+                        <label><input type="radio" name="referral" value="other"> Other</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Gender:</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="gender" value="male" required> Male</label>
+                        <label><input type="radio" name="gender" value="female" required> Female</label>
+                        <label><input type="radio" name="gender" value="other" required> Prefer not to say</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ageRange">Age Range:</label>
+                    <select id="ageRange" name="ageRange" required>
+                        <option value="" disabled selected>Please select...</option>
+                        <option value="under18">Under 18</option>
+                        <option value="18-24">18-24</option>
+                        <option value="25-34">25-34</option>
+                        <option value="35-44">35-44</option>
+                        <option value="45-54">45-54</option>
+                        <option value="55-64">55-64</option>
+                        <option value="65+">65+</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="survey-submit">Complete & Continue</button>
+            </form>
+        </div>
+    </div>
+
     <script>
         // Handle form submission
         document.querySelector('.waitlist-form').addEventListener('submit', async function(e) {
@@ -996,7 +1191,11 @@
                 });
 
                 if (response.ok) {
-                    showSuccessAnimation();
+                    // Store email for the survey form
+                    document.getElementById('userEmail').value = email;
+                    
+                    // Show survey instead of success animation
+                    showSurveyPage();
                     form.reset();
                 } else {
                     throw new Error('Form submission failed');
@@ -1010,6 +1209,59 @@
                 submitButton.classList.remove('loading');
             }
         });
+
+        // Handle survey form submission
+        document.getElementById('surveyForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const form = this;
+            const submitButton = form.querySelector('button[type="submit"]');
+            
+            // Disable submit button and show loading
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+            
+            try {
+                // Get all form data
+                const formData = new FormData(form);
+                const formObject = {};
+                formData.forEach((value, key) => {
+                    formObject[key] = value;
+                });
+                
+                const response = await fetch('https://formspree.io/f/xeoaoqqy', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formObject)
+                });
+
+                if (response.ok) {
+                    // Hide survey and show success
+                    hideSurveyPage();
+                    showSuccessAnimation();
+                } else {
+                    throw new Error('Survey submission failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Sorry, there was an error submitting your responses. Please try again.');
+                submitButton.disabled = false;
+                submitButton.textContent = 'Complete & Continue';
+            }
+        });
+        
+        // Show survey page
+        function showSurveyPage() {
+            const surveyPage = document.getElementById('surveyPage');
+            surveyPage.classList.add('visible');
+        }
+        
+        // Hide survey page
+        function hideSurveyPage() {
+            const surveyPage = document.getElementById('surveyPage');
+            surveyPage.classList.remove('visible');
+        }
 
         // Show success animation
         function showSuccessAnimation() {
