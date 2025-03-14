@@ -233,6 +233,9 @@
             transform: translateY(20px);
             animation: fadeIn 1s ease forwards;
             filter: drop-shadow(0 0 25px rgba(236, 72, 153, 0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         @keyframes fadeIn {
@@ -244,11 +247,14 @@
 
         .logo-inner {
             position: relative;
-            width: 100%;
-            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transform-style: preserve-3d;
             animation: float 3s ease-in-out infinite;
             perspective: 1000px;
+            width: 80px;
+            height: 80px;
         }
 
         @keyframes float {
@@ -256,39 +262,42 @@
                 transform: translateY(0) rotate(0deg);
             }
             50% {
-                transform: translateY(-10px) rotate(5deg);
+                transform: translateY(-15px) rotate(5deg);
             }
         }
 
-        .logo-circle {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle at center, var(--accent-color), #8a2387);
-            box-shadow: 0 10px 25px rgba(233, 64, 87, 0.5),
-                        inset 0 -5px 10px rgba(0, 0, 0, 0.2),
-                        inset 0 5px 10px rgba(255, 255, 255, 0.2);
-            animation: glow 2s infinite ease-in-out alternate;
-        }
-
+        /* Remove the logo-circle styles and keep just the heart */
         .logo-heart {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            filter: drop-shadow(0 0 8px rgba(255, 193, 204, 0.4));
+            position: relative;
+            width: 80px;
+            height: 80px;
+            filter: drop-shadow(0 0 20px rgba(255, 107, 203, 0.9));
             animation: heartbeat 1.8s infinite ease-in-out;
         }
 
         /* Heart SVG specific styles */
         .heart-inner {
-            opacity: 0.2;
+            opacity: 0.25;
             transform-origin: center;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 12px rgba(255, 193, 204, 0.7));
+            }
+            20% {
+                transform: scale(1.08);
+                filter: drop-shadow(0 0 20px rgba(255, 193, 204, 1));
+            }
+            35% {
+                transform: scale(0.95);
+                filter: drop-shadow(0 0 15px rgba(255, 193, 204, 0.8));
+            }
+            50% {
+                transform: scale(1.15);
+                filter: drop-shadow(0 0 25px rgba(255, 193, 204, 1));
+            }
         }
 
         .heart-particles {
@@ -320,25 +329,6 @@
             100% {
                 transform: translate(var(--tx), var(--ty));
                 opacity: 0;
-            }
-        }
-
-        @keyframes heartbeat {
-            0%, 100% {
-                transform: translate(-50%, -50%) scale(1);
-                filter: drop-shadow(0 0 8px rgba(255, 193, 204, 0.4));
-            }
-            20% {
-                transform: translate(-50%, -50%) scale(1.08);
-                filter: drop-shadow(0 0 15px rgba(255, 193, 204, 0.8));
-            }
-            35% {
-                transform: translate(-50%, -50%) scale(0.95);
-                filter: drop-shadow(0 0 10px rgba(255, 193, 204, 0.6));
-            }
-            50% {
-                transform: translate(-50%, -50%) scale(1.15);
-                filter: drop-shadow(0 0 18px rgba(255, 193, 204, 0.9));
             }
         }
 
@@ -1664,7 +1654,6 @@
         <div class="hero-content">
             <div class="logo">
                 <div class="logo-inner">
-                    <div class="logo-circle"></div>
                     <div class="logo-heart">
                         <svg viewBox="0 0 24 24" width="100%" height="100%">
                             <path 
