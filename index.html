@@ -26,21 +26,26 @@
     
     <style>
         :root {
-            --primary-color: #6246EA;
-            --primary-light: #9583f4;
-            --primary-dark: #4e38bb;
-            --accent-color: #FF5470;
+            --primary-color: #a855f7;
+            --primary-light: #b19cd9;
+            --primary-dark: #9333ea;
+            --accent-color: #ec4899;
+            --accent-light: #ff6bcb;
             --text-color: #FFFFFF;
             --dark-text: #333333;
             --light-text: #E2E8F0;
-            --background-overlay: rgba(0, 0, 0, 0.5);
-            --card-bg: rgba(255, 255, 255, 0.95);
+            --background-overlay: rgba(0, 0, 0, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.15);
             --card-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
             --glassmorphism: rgba(255, 255, 255, 0.25);
             --transition-slow: 0.6s ease;
             --transition-normal: 0.3s ease;
-            --border-radius: 12px;
-            --headline-gradient: linear-gradient(135deg, #e94057, #f27121);
+            --border-radius: 16px;
+            --button-radius: 16px;
+            --input-radius: 16px;
+            --headline-gradient: linear-gradient(135deg, #ec4899, #a855f7);
+            --main-gradient: linear-gradient(to bottom, #ec4899, #a855f7, #6366f1);
+            --button-gradient: linear-gradient(to right, #ff6bcb, #B19CD9);
         }
 
         * {
@@ -55,7 +60,7 @@
             color: var(--text-color);
             min-height: 100vh;
             overflow-x: hidden;
-            background-color: #f5f5f7;
+            background: var(--main-gradient);
         }
 
         /* Utility Classes */
@@ -94,10 +99,10 @@
         .btn {
             display: inline-block;
             padding: 1rem 2rem;
-            background: var(--primary-color);
+            background: var(--button-gradient);
             color: white;
             border: none;
-            border-radius: 50px;
+            border-radius: var(--button-radius);
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
             text-decoration: none;
@@ -109,11 +114,13 @@
             z-index: 1;
             transform-style: preserve-3d;
             perspective: 1000px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            letter-spacing: 0.025em;
         }
 
         .btn:hover {
             transform: translateY(-3px) translateZ(10px);
-            box-shadow: 0 10px 25px rgba(98, 70, 234, 0.3);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
         .btn:active {
@@ -143,21 +150,19 @@
             font-weight: 700;
             margin-bottom: 1.5rem;
             text-align: center;
-            color: var(--dark-text);
-            background: var(--headline-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-fill-color: transparent;
+            color: white;
+            letter-spacing: 0.05em;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         .section-subtitle {
             font-family: 'Inter', sans-serif;
             font-size: 1.2rem;
-            color: #666;
+            color: rgba(255, 255, 255, 0.8);
             text-align: center;
             max-width: 800px;
             margin: 0 auto 3rem;
+            letter-spacing: 0.025em;
         }
 
         /* Hero Section */
@@ -169,11 +174,6 @@
             align-items: center;
             justify-content: center;
             padding: 4rem 2rem;
-            background: linear-gradient(var(--background-overlay), var(--background-overlay)),
-                        url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
             overflow: hidden;
         }
 
@@ -184,8 +184,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(138, 35, 135, 0.5), rgba(242, 113, 33, 0.5)), 
-                          radial-gradient(circle at center, rgba(98, 70, 234, 0.2), transparent 70%);
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), transparent 70%);
             z-index: 1;
         }
 
@@ -204,6 +203,7 @@
             opacity: 0;
             transform: translateY(20px);
             animation: fadeIn 1s ease forwards;
+            filter: drop-shadow(0 0 15px rgba(255, 193, 204, 0.7));
         }
 
         @keyframes fadeIn {
@@ -238,8 +238,8 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            background: radial-gradient(circle at center, var(--primary-light), var(--primary-color));
-            box-shadow: 0 10px 25px rgba(98, 70, 234, 0.3),
+            background: radial-gradient(circle at center, var(--accent-light), var(--accent-color));
+            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.5),
                         inset 0 -5px 10px rgba(0, 0, 0, 0.2),
                         inset 0 5px 10px rgba(255, 255, 255, 0.2);
         }
@@ -258,9 +258,11 @@
         @keyframes pulse {
             0%, 100% {
                 transform: translate(-50%, -50%) scale(1);
+                filter: drop-shadow(0 0 8px rgba(255, 193, 204, 0.4));
             }
             50% {
                 transform: translate(-50%, -50%) scale(1.1);
+                filter: drop-shadow(0 0 15px rgba(255, 193, 204, 0.8));
             }
         }
 
@@ -273,7 +275,8 @@
             opacity: 0;
             transform: translateY(20px);
             animation: fadeIn 1s ease forwards 0.3s;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.05em;
         }
 
         .hero-title span {
@@ -292,7 +295,63 @@
             opacity: 0;
             transform: translateY(20px);
             animation: fadeIn 1s ease forwards 0.6s;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.025em;
+        }
+
+        /* Floating background hearts */
+        .floating-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.15);
+            opacity: 0.15;
+            transform-origin: center center;
+        }
+
+        .floating-heart::before,
+        .floating-heart::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 10px;
+            height: 16px;
+            border-radius: 10px 10px 0 0;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .floating-heart::before {
+            left: 10px;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .floating-heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        @keyframes float-heart {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0.1;
+            }
+            50% {
+                transform: translateY(-20px) translateX(10px);
+                opacity: 0.2;
+            }
         }
 
         .waitlist-container {
@@ -305,13 +364,14 @@
             display: flex;
             max-width: 500px;
             margin: 0 auto;
-            background: var(--glassmorphism);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
-            border-radius: 50px;
+            border-radius: var(--input-radius);
             padding: 0.5rem;
             box-shadow: var(--card-shadow);
             transform-style: preserve-3d;
             perspective: 1000px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .waitlist-form input {
@@ -324,6 +384,7 @@
             font-size: 1rem;
             font-weight: 500;
             outline: none;
+            letter-spacing: 0.025em;
         }
 
         .waitlist-form input::placeholder {
@@ -335,8 +396,8 @@
         .waitlist-form button {
             padding: 1rem 2rem;
             border: none;
-            border-radius: 25px;
-            background: var(--primary-color);
+            border-radius: var(--button-radius);
+            background: var(--button-gradient);
             color: white;
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
@@ -346,11 +407,13 @@
             position: relative;
             transform-style: preserve-3d;
             perspective: 1000px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            letter-spacing: 0.025em;
         }
 
         .waitlist-form button:hover {
             transform: translateY(-2px) translateZ(10px);
-            box-shadow: 0 10px 20px rgba(98, 70, 234, 0.4);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
         .waitlist-form button:disabled {
@@ -462,8 +525,9 @@
         /* Features Section */
         .features {
             padding: 8rem 2rem;
-            background-color: white;
             position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
         }
 
         .features::before {
@@ -473,7 +537,7 @@
             left: 0;
             width: 100%;
             height: 10rem;
-            background: linear-gradient(to bottom, transparent, white);
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.05));
             z-index: 5;
         }
 
@@ -485,7 +549,7 @@
         }
 
         .feature-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.15);
             border-radius: var(--border-radius);
             padding: 2rem;
             box-shadow: var(--card-shadow);
@@ -495,11 +559,14 @@
             z-index: 1;
             transform-style: preserve-3d;
             perspective: 1000px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .feature-card:hover {
             transform: translateY(-10px) translateZ(5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .feature-card::before {
@@ -509,7 +576,7 @@
             left: 0;
             width: 5px;
             height: 100%;
-            background: var(--primary-color);
+            background: var(--button-gradient);
             z-index: -1;
             transition: width var(--transition-normal);
         }
@@ -521,8 +588,9 @@
 
         .feature-icon {
             font-size: 2.5rem;
-            color: var(--primary-color);
+            color: var(--accent-light);
             margin-bottom: 1.5rem;
+            filter: drop-shadow(0 5px 15px rgba(236, 72, 153, 0.4));
         }
 
         .feature-title {
@@ -530,12 +598,15 @@
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 1rem;
-            color: var(--dark-text);
+            color: white;
+            letter-spacing: 0.025em;
         }
 
         .feature-description {
-            color: #666;
+            color: rgba(255, 255, 255, 0.8);
             font-size: 1rem;
+            letter-spacing: 0.025em;
+            line-height: 1.6;
         }
 
         /* How It Works Section */
@@ -553,7 +624,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: var(--main-gradient);
             backdrop-filter: blur(5px);
             display: flex;
             align-items: center;
@@ -574,31 +645,20 @@
             width: 100px;
             height: 100px;
             margin: 0 auto 2rem;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.2);
-            }
-            100% {
-                transform: scale(1);
-            }
+            filter: drop-shadow(0 0 20px rgba(255, 193, 204, 0.9));
         }
 
         .heart {
             background-color: var(--accent-color);
-            height: 30px;
+            height: 50px;
             transform: rotate(-45deg);
-            width: 30px;
+            width: 50px;
             position: absolute;
             top: 50%;
             left: 50%;
-            margin-top: -15px;
-            margin-left: -15px;
+            margin-top: -25px;
+            margin-left: -25px;
+            animation: pulse 1.5s ease-in-out infinite, glow 1.5s ease-in-out infinite alternate;
         }
 
         .heart:before,
@@ -606,66 +666,116 @@
             content: "";
             background-color: var(--accent-color);
             border-radius: 50%;
-            height: 30px;
+            height: 50px;
             position: absolute;
-            width: 30px;
+            width: 50px;
         }
 
         .heart:before {
-            top: -15px;
+            top: -25px;
             left: 0;
         }
 
         .heart:after {
-            left: 15px;
+            left: 25px;
             top: 0;
+        }
+
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 5px rgba(255, 193, 204, 0.6));
+            }
+            to {
+                filter: drop-shadow(0 0 20px rgba(255, 193, 204, 1));
+            }
+        }
+
+        /* Heart particles around the main heart */
+        .heart-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart-particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        @keyframes particle-float {
+            0% {
+                transform: translate(0, 0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty));
+                opacity: 0;
+            }
         }
 
         .success-message {
             text-align: center;
             max-width: 500px;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.15);
             border-radius: var(--border-radius);
             backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
         .success-message h2 {
             margin-bottom: 1rem;
             font-size: 2rem;
             font-family: 'Playfair Display', serif;
+            letter-spacing: 0.05em;
         }
 
         .success-message p {
             margin-bottom: 1.5rem;
             font-size: 1.1rem;
             opacity: 0.9;
+            letter-spacing: 0.025em;
         }
 
         .success-message .close-btn {
             display: inline-block;
-            background: white;
-            color: var(--primary-color);
-            border: none;
-            padding: 0.5rem 1.5rem;
-            border-radius: 30px;
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--button-radius);
             cursor: pointer;
             font-weight: 600;
             margin-top: 1rem;
             transition: var(--transition-normal);
+            letter-spacing: 0.025em;
         }
 
         .success-message .close-btn:hover {
-            background: var(--primary-color);
-            color: white;
+            background: white;
+            color: var(--primary-color);
+            border-color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
         .share-button {
-            background: var(--accent-color);
+            background: var(--button-gradient);
             color: white;
             border: none;
             padding: 0.75rem 1.5rem;
-            border-radius: 30px;
+            border-radius: var(--button-radius);
             cursor: pointer;
             font-weight: 600;
             display: flex;
@@ -675,12 +785,13 @@
             transition: var(--transition-normal);
             transform-style: preserve-3d;
             perspective: 1000px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            letter-spacing: 0.025em;
         }
 
         .share-button:hover {
-            background: #ff374f;
-            transform: translateY(-2px) translateZ(5px);
-            box-shadow: 0 10px 20px rgba(255, 84, 112, 0.3);
+            transform: translateY(-3px) translateZ(5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
         .share-button svg {
@@ -692,7 +803,8 @@
         /* Message Transformation Demo */
         .message-demo {
             padding: 6rem 2rem;
-            background: linear-gradient(135deg, #f6f9fc 0%, #eef1f5 100%);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
         }
 
         .message-cards {
@@ -704,7 +816,7 @@
         }
 
         .message-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.15);
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--card-shadow);
@@ -713,15 +825,18 @@
             transition: transform var(--transition-normal);
             transform-style: preserve-3d;
             perspective: 1000px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .message-card:hover {
             transform: translateY(-5px) translateZ(5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .message-header {
-            background: var(--primary-color);
+            background: var(--button-gradient);
             padding: 1.5rem;
             color: white;
         }
@@ -731,39 +846,42 @@
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
+            letter-spacing: 0.025em;
         }
 
         .message-subtitle {
             font-size: 1rem;
             opacity: 0.85;
+            letter-spacing: 0.025em;
         }
 
         .message-body {
             padding: 1.5rem;
+            color: white;
         }
 
         .message-label {
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #666;
+            color: rgba(255, 255, 255, 0.7);
             margin-bottom: 0.5rem;
         }
 
         .message-text {
             padding: 1rem;
-            background: #f5f7fa;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             margin-bottom: 1.5rem;
-            color: #333;
+            color: white;
         }
 
         .message-frustrated {
-            border-left: 4px solid #ff5470;
+            border-left: 4px solid var(--accent-color);
         }
 
         .message-improved {
-            border-left: 4px solid #38b2ac;
+            border-left: 4px solid var(--primary-light);
         }
 
         .message-impact {
@@ -776,13 +894,14 @@
         .impact-title {
             font-size: 1rem;
             font-weight: 600;
-            color: #333;
+            color: white;
             margin-bottom: 0.8rem;
+            letter-spacing: 0.025em;
         }
 
         .impact-list {
             padding-left: 1.5rem;
-            color: #666;
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 1rem;
         }
 
@@ -794,7 +913,8 @@
             font-size: 0.95rem;
             line-height: 1.6;
             margin-bottom: 1rem;
-            color: #555;
+            color: rgba(255, 255, 255, 0.8);
+            letter-spacing: 0.025em;
         }
 
         /* Responsive styles */
@@ -809,19 +929,21 @@
             
             .waitlist-form {
                 flex-direction: column;
-                background: none;
+                background: rgba(255, 255, 255, 0.15);
                 box-shadow: none;
                 backdrop-filter: none;
                 padding: 0;
+                border: none;
             }
             
             .waitlist-form input {
                 width: 100%;
                 margin-bottom: 1rem;
-                border-radius: 25px;
+                border-radius: var(--input-radius);
                 background: rgba(255, 255, 255, 0.15);
                 backdrop-filter: blur(5px);
                 padding: 1rem 1.5rem;
+                border: 2px solid rgba(255, 255, 255, 0.1);
             }
             
             .waitlist-form button {
@@ -843,6 +965,33 @@
             
             .section-subtitle {
                 font-size: 1rem;
+            }
+            
+            .survey-container {
+                padding: 2rem 1.5rem 2rem;
+                max-height: 90vh;
+                margin: 20px 0;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .survey-submit {
+                width: 100%;
+                max-width: 100%;
+                margin-top: 3rem;
+            }
+            
+            .modal-overlay {
+                align-items: flex-start;
+                padding: 10px;
+            }
+            
+            .survey-form {
+                padding-bottom: 0;
+                margin-bottom: 1rem;
             }
         }
 
@@ -927,7 +1076,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: var(--main-gradient);
             backdrop-filter: blur(5px);
             display: flex;
             align-items: center;
@@ -946,14 +1095,14 @@
         }
         
         .survey-container {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
             padding: 2.5rem 2.5rem 2.5rem;
             max-width: 550px;
             width: 90%;
             color: white;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             transform-style: preserve-3d;
             perspective: 1000px;
             position: relative;
@@ -962,14 +1111,16 @@
             -webkit-overflow-scrolling: touch;
             display: flex;
             flex-direction: column;
+            border: 2px solid rgba(255, 255, 255, 0.1);
         }
         
         .survey-container h2 {
             margin-bottom: 1rem;
-            color: var(--accent-color);
+            color: white;
             font-size: 2rem;
             text-align: center;
             font-family: 'Playfair Display', serif;
+            letter-spacing: 0.05em;
         }
         
         .survey-intro {
@@ -977,6 +1128,7 @@
             text-align: center;
             font-size: 1.1rem;
             opacity: 0.9;
+            letter-spacing: 0.025em;
         }
         
         .survey-form {
@@ -997,6 +1149,7 @@
             font-weight: 500;
             color: var(--light-text);
             font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.025em;
         }
         
         .survey-form select, 
@@ -1007,6 +1160,7 @@
             background: rgba(255, 255, 255, 0.1);
             color: white;
             font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.025em;
         }
         
         .survey-form select option {
@@ -1030,11 +1184,11 @@
         }
         
         .survey-submit {
-            background: var(--accent-color);
+            background: var(--button-gradient);
             color: white;
             border: none;
             padding: 1rem 2rem;
-            border-radius: 50px;
+            border-radius: var(--button-radius);
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
@@ -1047,15 +1201,64 @@
             max-width: 500px;
             z-index: 10;
             position: relative;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            letter-spacing: 0.025em;
         }
         
         .survey-submit:hover {
-            background: #ff3a5c;
             transform: translateY(-2px) translateZ(5px);
-            box-shadow: 0 10px 20px rgba(255, 84, 112, 0.3);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         
         @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .waitlist-form {
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.15);
+                box-shadow: none;
+                backdrop-filter: none;
+                padding: 0;
+                border: none;
+            }
+            
+            .waitlist-form input {
+                width: 100%;
+                margin-bottom: 1rem;
+                border-radius: var(--input-radius);
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(5px);
+                padding: 1rem 1.5rem;
+                border: 2px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .waitlist-form button {
+                width: 100%;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .message-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1rem;
+            }
+            
             .survey-container {
                 padding: 2rem 1.5rem 2rem;
                 max-height: 90vh;
@@ -1093,6 +1296,11 @@
 </head>
 <body>
     <section class="hero">
+        <!-- Floating hearts background -->
+        <div class="floating-hearts">
+            <!-- Hearts will be added with JavaScript -->
+        </div>
+        
         <div class="hero-content">
             <div class="logo">
                 <div class="logo-inner">
@@ -1240,6 +1448,10 @@
         <div class="success-message">
             <div class="heart-container">
                 <div class="heart"></div>
+                <!-- Add particle container for glowing particles -->
+                <div class="heart-particles">
+                    <!-- Particles will be added with JavaScript -->
+                </div>
             </div>
             <h2>You're In! Welcome to HeartGlowAI's Elite Beta</h2>
             <div class="success-badge">
@@ -1443,6 +1655,9 @@
         function showSuccessAnimation() {
             const successAnimation = document.getElementById('successAnimation');
             successAnimation.classList.add('visible');
+            
+            // Add particle animations around the heart
+            createHeartParticles();
         }
 
         // Hide success animation
@@ -1470,11 +1685,67 @@
                 alert('Link copied to clipboard! Share it with your friends.');
             }
         }
+        
+        // Create floating hearts in the background
+        function createFloatingHearts() {
+            const container = document.querySelector('.floating-hearts');
+            const count = window.innerWidth < 768 ? 10 : 18;
+            
+            for (let i = 0; i < count; i++) {
+                const size = 10 + Math.random() * 25;
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.style.width = `${size}px`;
+                heart.style.height = `${size}px`;
+                heart.style.left = `${10 + Math.random() * 80}%`;
+                heart.style.top = `${10 + Math.random() * 80}%`;
+                heart.style.opacity = 0.05 + Math.random() * 0.15;
+                
+                // Random animations
+                const duration = 4 + Math.random() * 6;
+                const direction = Math.random() > 0.5 ? 1 : -1;
+                heart.style.animation = `float-heart ${duration}s ease-in-out infinite`;
+                heart.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(heart);
+            }
+        }
+        
+        // Create particles around the success heart
+        function createHeartParticles() {
+            const container = document.querySelector('.heart-particles');
+            container.innerHTML = ''; // Clear existing particles
+            
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('heart-particle');
+                
+                // Random positions and animation
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 40 + Math.random() * 60;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                particle.style.setProperty('--tx', `${tx}px`);
+                particle.style.setProperty('--ty', `${ty}px`);
+                
+                particle.style.animation = `particle-float ${1 + Math.random()}s ease-out forwards`;
+                particle.style.animationDelay = `${Math.random() * 0.5}s`;
+                
+                container.appendChild(particle);
+            }
+            
+            // Re-run particles every 2 seconds
+            setTimeout(createHeartParticles, 2000);
+        }
 
         // GSAP animations
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize ScrollTrigger
             gsap.registerPlugin(ScrollTrigger);
+            
+            // Create floating hearts
+            createFloatingHearts();
             
             // Animate feature cards
             gsap.utils.toArray('.feature-card').forEach(card => {
@@ -1536,6 +1807,29 @@
                     }
                 });
             });
+            
+            // Occasionally add more floating hearts
+            setInterval(() => {
+                if (Math.random() > 0.7) {
+                    const heart = document.createElement('div');
+                    heart.classList.add('floating-heart');
+                    const size = 15 + Math.random() * 20;
+                    heart.style.width = `${size}px`;
+                    heart.style.height = `${size}px`;
+                    heart.style.left = `${Math.random() * 100}%`;
+                    heart.style.top = '110%';
+                    heart.style.opacity = '0.1';
+                    
+                    heart.style.animation = `float-heart ${6 + Math.random() * 4}s ease-in-out forwards`;
+                    
+                    document.querySelector('.floating-hearts').appendChild(heart);
+                    
+                    // Remove the heart after animation
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 10000);
+                }
+            }, 2000);
         });
     </script>
 </body>
