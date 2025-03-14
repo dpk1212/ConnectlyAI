@@ -939,7 +939,7 @@
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border-radius: var(--border-radius);
-            padding: 2.5rem 2.5rem 6rem;
+            padding: 2.5rem 2.5rem 8rem;
             max-width: 550px;
             width: 90%;
             color: white;
@@ -971,7 +971,7 @@
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
-            padding-bottom: 1rem;
+            padding-bottom: 5rem;
         }
         
         .form-group {
@@ -1030,7 +1030,7 @@
             font-family: 'Montserrat', sans-serif;
             transform-style: preserve-3d;
             perspective: 1000px;
-            position: fixed;
+            position: absolute;
             bottom: 1.5rem;
             left: 50%;
             transform: translateX(-50%);
@@ -1047,7 +1047,7 @@
         
         @media (max-width: 768px) {
             .survey-container {
-                padding: 2rem 1.5rem 6rem;
+                padding: 2rem 1.5rem 8rem;
                 max-height: 90vh;
                 margin: 20px 0;
             }
@@ -1068,6 +1068,10 @@
             .modal-overlay {
                 align-items: flex-start;
                 padding: 10px;
+            }
+            
+            .survey-form {
+                padding-bottom: 6rem;
             }
         }
         
