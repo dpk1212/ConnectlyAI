@@ -3,21 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connectly - Build Better Communities</title>
+    <title>Heart Glow AI - Build Better Relationships</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     
     <style>
         :root {
             --primary-color: #6246EA;
+            --primary-light: #9583f4;
+            --primary-dark: #4e38bb;
+            --accent-color: #FF5470;
             --text-color: #FFFFFF;
-            --background-overlay: rgba(0, 0, 0, 0.4);
+            --dark-text: #333333;
+            --light-text: #E2E8F0;
+            --background-overlay: rgba(0, 0, 0, 0.5);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            --glassmorphism: rgba(255, 255, 255, 0.25);
+            --transition-slow: 0.6s ease;
+            --transition-normal: 0.3s ease;
+            --border-radius: 12px;
         }
 
         * {
@@ -32,82 +44,229 @@
             color: var(--text-color);
             min-height: 100vh;
             overflow-x: hidden;
+            background-color: #f5f5f7;
         }
 
+        /* Utility Classes */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .highlight {
+            color: var(--accent-color);
+            font-weight: 700;
+            display: inline-block;
+            position: relative;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0.1em;
+            left: 0;
+            width: 100%;
+            height: 0.2em;
+            background-color: var(--accent-color);
+            opacity: 0.3;
+            z-index: -1;
+            border-radius: 2px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform var(--transition-normal), 
+                        box-shadow var(--transition-normal);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(98, 70, 234, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition-normal);
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+            transition: 0.75s;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: var(--dark-text);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Hero Section */
         .hero {
             position: relative;
-            height: 100vh;
-            width: 100vw;
+            min-height: 100vh;
+            width: 100%;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 2rem;
+            padding: 4rem 2rem;
             background: linear-gradient(var(--background-overlay), var(--background-overlay)),
                         url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
+            overflow: hidden;
         }
 
-        .logo {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 2rem;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(98, 70, 234, 0.2), transparent 70%);
+            z-index: 1;
         }
 
         .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            text-align: center;
         }
 
-        h1 {
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, var(--primary-light), var(--primary-color));
+            box-shadow: 0 10px 25px rgba(98, 70, 234, 0.3);
+        }
+
+        .logo-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: white;
+        }
+
+        .hero-title {
             font-size: 3.5rem;
-            margin-bottom: 1rem;
+            font-weight: 700;
             line-height: 1.2;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease forwards 0.3s;
         }
 
-        .highlight {
-            font-style: italic;
-            color: #E2E2E2;
+        .hero-title span {
+            display: inline-block;
         }
 
-        .subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease forwards 0.6s;
+        }
+
+        .waitlist-container {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease forwards 0.9s;
         }
 
         .waitlist-form {
             display: flex;
-            gap: 0.5rem;
             max-width: 500px;
             margin: 0 auto;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.5rem;
-            border-radius: 50px;
+            background: var(--glassmorphism);
             backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 0.5rem;
+            box-shadow: var(--card-shadow);
         }
 
         .waitlist-form input {
             flex: 1;
             padding: 1rem 1.5rem;
             border: none;
-            border-radius: 25px;
+            background: transparent;
+            color: white;
             font-size: 1rem;
-            background: rgba(255, 255, 255, 0.9);
-            color: #333;
+            outline: none;
         }
 
         .waitlist-form input::placeholder {
-            color: #666;
-        }
-
-        .waitlist-form input:focus {
-            outline: none;
-            background: white;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .waitlist-form button {
@@ -177,140 +336,110 @@
             transform: translateY(-2px);
         }
 
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .waitlist-form {
-                flex-direction: column;
-                background: transparent;
-                padding: 0;
-            }
-
-            .waitlist-form input,
-            .waitlist-form button {
-                width: 100%;
-            }
-        }
-
-        #successAnimation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1000;
-            display: none;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-        }
-
-        #successAnimation.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .success-message {
-            text-align: center;
-            color: white;
-            z-index: 1001;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .success-message.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .heart-container {
+        .scroll-indicator {
             position: absolute;
-            top: 50%;
+            bottom: 2rem;
             left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1000;
+            transform: translateX(-50%);
             opacity: 0;
-            transition: opacity 0.5s ease;
+            animation: fadeIn 1s ease forwards 1.2s, bounce 2s infinite 1.2s;
+            z-index: 3;
         }
 
-        .heart-container.visible {
-            opacity: 1;
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-30px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-15px);
+            }
         }
 
-        .heart {
+        .scroll-indicator svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 2rem;
+            background-color: white;
             position: relative;
-            width: 100px;
-            height: 100px;
-            animation: heartbeat 1.5s ease-in-out infinite;
         }
 
-        .heart::before,
-        .heart::after {
+        .features::before {
             content: '';
             position: absolute;
-            width: 100px;
-            height: 160px;
-            background-color: var(--primary-color);
-            border-radius: 50px 50px 0 0;
-        }
-
-        .heart::before {
-            left: 50px;
-            transform: rotate(-45deg);
-            transform-origin: 0 100%;
-        }
-
-        .heart::after {
+            top: -10rem;
             left: 0;
-            transform: rotate(45deg);
-            transform-origin: 100% 100%;
+            width: 100%;
+            height: 10rem;
+            background: linear-gradient(to bottom, transparent, white);
+            z-index: 5;
         }
 
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
         }
 
-        .share-button {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1rem;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
+        .feature-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: transform var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
 
-        .share-button:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+        .feature-card:hover {
+            transform: translateY(-10px);
         }
 
-        .close-button {
+        .feature-card::before {
+            content: '';
             position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 1002;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary-color);
+            z-index: -1;
+            transition: width var(--transition-normal);
         }
 
-        .close-button.visible {
-            opacity: 1;
+        .feature-card:hover::before {
+            width: 100%;
+            opacity: 0.05;
         }
 
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+        }
+
+        .feature-description {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* How It Works Section */
         .how-it-works {
             padding: 6rem 2rem;
             background: #f8f9fa;
@@ -318,523 +447,444 @@
             display: none;
         }
 
-        .how-it-works h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-
-        .carousel-container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .carousel {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .carousel-slide {
-            position: absolute;
+        /* Success Animation */
+        #successAnimation {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            opacity: 0;
-            transform: translateX(100%);
-            transition: all 0.5s ease;
-        }
-
-        .carousel-slide.active {
-            position: relative;
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .slide-content {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .slide-header {
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
-        .slide-header h3 {
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            margin: 0;
+        #successAnimation.visible {
+            opacity: 1;
+            visibility: visible;
         }
 
-        .slide-subtitle {
-            font-size: 1.2rem;
-            color: #666;
+        .heart-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
             margin-bottom: 2rem;
-            font-style: italic;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .heart {
+            background-color: var(--accent-color);
+            height: 30px;
+            transform: rotate(-45deg);
+            width: 30px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -15px;
+            margin-left: -15px;
+        }
+
+        .heart:before,
+        .heart:after {
+            content: "";
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            height: 30px;
+            position: absolute;
+            width: 30px;
+        }
+
+        .heart:before {
+            top: -15px;
+            left: 0;
+        }
+
+        .heart:after {
+            left: 15px;
+            top: 0;
+        }
+
+        .success-message {
+            text-align: center;
+            max-width: 500px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(10px);
+        }
+
+        .success-message h2 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .success-message p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .success-message .close-btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: var(--transition-normal);
+        }
+
+        .success-message .close-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .share-button {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1rem;
+            transition: var(--transition-normal);
+        }
+
+        .share-button:hover {
+            background: #ff374f;
+            transform: translateY(-2px);
+        }
+
+        .share-button svg {
+            margin-right: 0.5rem;
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Message Transformation Demo */
+        .message-demo {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #f6f9fc 0%, #eef1f5 100%);
+        }
+
+        .message-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .message-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            width: 100%;
+            max-width: 500px;
+            transition: transform var(--transition-normal);
+        }
+
+        .message-card:hover {
+            transform: translateY(-5px);
         }
 
         .message-header {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+            background: var(--primary-color);
+            padding: 1.5rem;
+            color: white;
         }
 
-        .message-header h3 {
-            margin: 0;
-            font-size: 1.2rem;
+        .message-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-subtitle {
+            font-size: 1rem;
+            opacity: 0.85;
+        }
+
+        .message-body {
+            padding: 1.5rem;
+        }
+
+        .message-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 0.5rem;
         }
 
         .message-text {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .emotional-impact {
-            background: rgba(255, 0, 0, 0.05);
             padding: 1rem;
+            background: #f5f7fa;
             border-radius: 8px;
-            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            color: #333;
         }
 
-        .emotional-impact h4 {
-            margin: 0.5rem 0;
-            color: #d32f2f;
+        .message-frustrated {
+            border-left: 4px solid #ff5470;
         }
 
-        .emotional-impact ul {
-            margin: 0;
+        .message-improved {
+            border-left: 4px solid #38b2ac;
+        }
+
+        .message-impact {
+            margin-top: 1.5rem;
+        }
+
+        .impact-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-list {
             padding-left: 1.5rem;
             color: #666;
         }
 
-        .emotional-impact li {
+        .impact-list li {
             margin-bottom: 0.5rem;
         }
 
-        .emoji {
-            font-size: 1.5rem;
-        }
-
-        .message-box.poor {
-            background: #fff5f5;
-            border: 1px solid #ffcdd2;
-        }
-
-        .message-box.improved {
-            background: #f0f9ff;
-            border: 1px solid #b3e5fc;
-        }
-
-        .outcome {
-            background: #f3f4f6;
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin-top: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .outcome h3 {
-            margin: 0.5rem 0;
-            color: #333;
-        }
-
-        .outcome p {
-            margin: 0;
-            color: #666;
-        }
-
-        .carousel-nav {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 2rem;
-            gap: 1rem;
-        }
-
-        .nav-btn {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s ease;
-        }
-
-        .nav-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .nav-dots {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .nav-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #ddd;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .nav-dot.active {
-            background: var(--primary-color);
-        }
-
+        /* Responsive styles */
         @media (max-width: 768px) {
-            .how-it-works {
-                padding: 4rem 1rem;
+            .hero-title {
+                font-size: 2.5rem;
             }
-
-            .how-it-works h2 {
-                font-size: 2rem;
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
             }
-
-            .slide-content {
-                padding: 1.5rem;
+            
+            .waitlist-form {
+                flex-direction: column;
+                background: none;
+                box-shadow: none;
+                backdrop-filter: none;
+                padding: 0;
             }
-
-            .slide-header h3 {
-                font-size: 1.5rem;
+            
+            .waitlist-form input {
+                width: 100%;
+                margin-bottom: 1rem;
+                border-radius: 25px;
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(5px);
+                padding: 1rem 1.5rem;
             }
-
-            .slide-subtitle {
-                font-size: 1.1rem;
+            
+            .waitlist-form button {
+                width: 100%;
             }
-
-            .message-text {
-                font-size: 1rem;
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .message-cards {
+                flex-direction: column;
+                align-items: center;
             }
         }
     </style>
 </head>
 <body>
-    <main class="hero">
-        <svg class="logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M2 17L12 22L22 17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M2 12L12 17L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        
+    <section class="hero">
         <div class="hero-content">
-            <h1>Feel Closer. <span class="highlight">Communicate Better.</span> Strengthen Your Relationships.</h1>
-            <p class="subtitle">Daily AI guidance to help you build deeper, stronger relationships.</p>
-            
-            <form class="waitlist-form" action="https://formspree.io/f/mjkyvdal" method="POST">
-                <input type="email" name="email" placeholder="Enter your email address here" required>
-                <button type="submit">
-                    Join Waitlist
-                    <div class="spinning-heart"></div>
-                </button>
-            </form>
-        </div>
-    </main>
-
-    <section class="how-it-works">
-        <h2>How Connectly Works</h2>
-        <div class="carousel-container">
-            <div class="carousel">
-                <div class="carousel-slide active">
-                    <div class="slide-content">
-                        <div class="slide-header">
-                            <span class="emoji">🎠</span>
-                            <h3>Feeling Unheard in a Relationship</h3>
-                        </div>
-                        <div class="slide-subtitle">"Struggling to Be Heard? Try This Instead."</div>
-                        
-                        <div class="message-box poor">
-                            <div class="message-header">
-                                <span class="emoji">💬</span>
-                                <h3>Frustrated Message</h3>
-                            </div>
-                            <p class="message-text">"You never listen to me! It's like I'm talking to a wall!"</p>
-                            <div class="emotional-impact">
-                                <span class="emoji">🔴</span>
-                                <h4>Emotional Impact:</h4>
-                                <ul>
-                                    <li>Makes your partner defensive instead of receptive</li>
-                                    <li>Shuts down communication instead of opening it up</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="message-box improved">
-                            <div class="message-header">
-                                <span class="emoji">💡</span>
-                                <h3>AI-Guided Solution</h3>
-                            </div>
-                            <p class="message-text">"I feel unheard, and that's frustrating for me. I'd love for us to really listen to each other—can we take a moment to connect?"</p>
-                        </div>
-
-                        <div class="outcome">
-                            <span class="emoji">❤️</span>
-                            <h3>Outcome</h3>
-                            <p>Your partner feels respected and is more likely to listen calmly.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carousel-slide">
-                    <div class="slide-content">
-                        <div class="slide-header">
-                            <span class="emoji">🎠</span>
-                            <h3>Reconnecting with a Distant Friend</h3>
-                        </div>
-                        <div class="slide-subtitle">"Miss Your Friend? Here's a Better Way to Reach Out."</div>
-                        
-                        <div class="message-box poor">
-                            <div class="message-header">
-                                <span class="emoji">💬</span>
-                                <h3>Frustrated Message</h3>
-                            </div>
-                            <p class="message-text">"Wow, I guess I don't matter to you anymore since you never text me back."</p>
-                            <div class="emotional-impact">
-                                <span class="emoji">🔴</span>
-                                <h4>Emotional Impact:</h4>
-                                <ul>
-                                    <li>Makes your friend feel guilty or pressured instead of valued</li>
-                                    <li>May cause more avoidance rather than bringing them closer</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="message-box improved">
-                            <div class="message-header">
-                                <span class="emoji">💡</span>
-                                <h3>AI-Guided Solution</h3>
-                            </div>
-                            <p class="message-text">"Hey, I know life gets busy, but I really miss catching up. Hope you're doing okay—let's chat soon!"</p>
-                        </div>
-
-                        <div class="outcome">
-                            <span class="emoji">❤️</span>
-                            <h3>Outcome</h3>
-                            <p>Your friend feels valued and is more likely to reconnect.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carousel-slide">
-                    <div class="slide-content">
-                        <div class="slide-header">
-                            <span class="emoji">🎠</span>
-                            <h3>Parenting Conflict Over Responsibilities</h3>
-                        </div>
-                        <div class="slide-subtitle">"Tired of Reminding Your Child? Try This Approach."</div>
-                        
-                        <div class="message-box poor">
-                            <div class="message-header">
-                                <span class="emoji">💬</span>
-                                <h3>Frustrated Message</h3>
-                            </div>
-                            <p class="message-text">"I'm so tired of reminding you—why can't you just do what I ask?!"</p>
-                            <div class="emotional-impact">
-                                <span class="emoji">🔴</span>
-                                <h4>Emotional Impact:</h4>
-                                <ul>
-                                    <li>Feels like nagging, leading to resistance</li>
-                                    <li>Creates resentment instead of responsibility</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="message-box improved">
-                            <div class="message-header">
-                                <span class="emoji">💡</span>
-                                <h3>AI-Guided Solution</h3>
-                            </div>
-                            <p class="message-text">"I know we both have a lot going on, but it would mean a lot if we could work together on this. What's a way we can make this easier for both of us?"</p>
-                        </div>
-
-                        <div class="outcome">
-                            <span class="emoji">❤️</span>
-                            <h3>Outcome</h3>
-                            <p>Your child feels respected and more willing to cooperate.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carousel-slide">
-                    <div class="slide-content">
-                        <div class="slide-header">
-                            <span class="emoji">🎠</span>
-                            <h3>Feeling Unappreciated in a Relationship</h3>
-                        </div>
-                        <div class="slide-subtitle">"Feeling Unappreciated? Here's How to Express It."</div>
-                        
-                        <div class="message-box poor">
-                            <div class="message-header">
-                                <span class="emoji">💬</span>
-                                <h3>Frustrated Message</h3>
-                            </div>
-                            <p class="message-text">"I do everything for you, and you don't even notice!"</p>
-                            <div class="emotional-impact">
-                                <span class="emoji">🔴</span>
-                                <h4>Emotional Impact:</h4>
-                                <ul>
-                                    <li>Sounds accusatory, making your partner defensive</li>
-                                    <li>Creates tension instead of appreciation</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="message-box improved">
-                            <div class="message-header">
-                                <span class="emoji">💡</span>
-                                <h3>AI-Guided Solution</h3>
-                            </div>
-                            <p class="message-text">"I love doing things for us, but I sometimes feel unnoticed. It would mean a lot if we took a moment to appreciate each other more."</p>
-                        </div>
-
-                        <div class="outcome">
-                            <span class="emoji">❤️</span>
-                            <h3>Outcome</h3>
-                            <p>Your partner feels encouraged to show appreciation more often.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carousel-slide">
-                    <div class="slide-content">
-                        <div class="slide-header">
-                            <span class="emoji">🎠</span>
-                            <h3>Dealing with Conflict Without Making It Worse</h3>
-                        </div>
-                        <div class="slide-subtitle">"Want to Resolve Conflict Instead of Escalate It?"</div>
-                        
-                        <div class="message-box poor">
-                            <div class="message-header">
-                                <span class="emoji">💬</span>
-                                <h3>Frustrated Message</h3>
-                            </div>
-                            <p class="message-text">"You always overreact! Why do you make everything such a big deal?"</p>
-                            <div class="emotional-impact">
-                                <span class="emoji">🔴</span>
-                                <h4>Emotional Impact:</h4>
-                                <ul>
-                                    <li>Invalidates the other person's feelings, making them shut down</li>
-                                    <li>Creates a bigger argument instead of a solution</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="message-box improved">
-                            <div class="message-header">
-                                <span class="emoji">💡</span>
-                                <h3>AI-Guided Solution</h3>
-                            </div>
-                            <p class="message-text">"I can tell this is really important to you. Can we talk about it so I can understand better?"</p>
-                        </div>
-
-                        <div class="outcome">
-                            <span class="emoji">❤️</span>
-                            <h3>Outcome</h3>
-                            <p>The conversation shifts toward problem-solving instead of conflict.</p>
-                        </div>
-                    </div>
+            <div class="logo">
+                <div class="logo-inner">
+                    <div class="logo-circle"></div>
+                    <div class="logo-heart">❤️</div>
                 </div>
             </div>
-            <div class="carousel-nav">
-                <button class="nav-btn prev">←</button>
-                <div class="nav-dots"></div>
-                <button class="nav-btn next">→</button>
+            <h1 class="hero-title">
+                <span>Feel </span>
+                <span>Closer.</span>
+                <span class="highlight">Communicate Better.</span>
+                <span>Strengthen Your Relationships.</span>
+            </h1>
+            <p class="hero-subtitle">Daily AI guidance to help you build deeper, stronger relationships.</p>
+            <div class="waitlist-container">
+                <form class="waitlist-form" action="https://formspree.io/f/mjkyvdal" method="POST">
+                    <input type="email" name="email" placeholder="Enter your email address here" required>
+                    <button type="submit">
+                        Join Waitlist
+                        <div class="spinning-heart"></div>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 21l-12-18h24z"/>
+            </svg>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Transform Your Communication</h2>
+            <p class="section-subtitle">Heart Glow AI guides you in creating messages that build connection instead of conflict.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3 class="feature-title">AI-Powered Guidance</h3>
+                    <p class="feature-description">Get real-time suggestions that transform problematic messages into relationship-building communication.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💞</div>
+                    <h3 class="feature-title">Emotional Intelligence</h3>
+                    <p class="feature-description">Our AI identifies emotional triggers and helps you communicate with empathy and understanding.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🛠️</div>
+                    <h3 class="feature-title">Context-Aware</h3>
+                    <p class="feature-description">Get personalized advice based on your specific relationship type and communication style.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <div id="successAnimation">
-        <div class="heart-container">
-            <div class="heart"></div>
+    <section class="message-demo">
+        <div class="container">
+            <h2 class="section-title">See the Difference</h2>
+            <p class="section-subtitle">Compare how AI guidance transforms difficult messages into relationship-building communication.</p>
+            
+            <div class="message-cards">
+                <div class="message-card">
+                    <div class="message-header">
+                        <h3 class="message-title">Feeling Unheard in a Relationship</h3>
+                        <p class="message-subtitle">Transform frustration into connection</p>
+                    </div>
+                    <div class="message-body">
+                        <p class="message-label">Frustrated Message</p>
+                        <div class="message-text message-frustrated">
+                            "You never listen to me! It's like I'm talking to a wall!"
+                        </div>
+                        
+                        <div class="message-impact">
+                            <h4 class="impact-title">Emotional Impact:</h4>
+                            <ul class="impact-list">
+                                <li>Makes your partner defensive instead of receptive</li>
+                                <li>Shuts down communication instead of opening it up</li>
+                            </ul>
+                        </div>
+                        
+                        <p class="message-label">AI-Guided Solution</p>
+                        <div class="message-text message-improved">
+                            "I feel unheard, and that's frustrating for me. I'd love for us to really listen to each other—can we take a moment to connect?"
+                        </div>
+                        
+                        <div class="message-impact">
+                            <h4 class="impact-title">Outcome:</h4>
+                            <p>Your partner feels respected and is more likely to listen calmly.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="message-card">
+                    <div class="message-header">
+                        <h3 class="message-title">Reconnecting with a Distant Friend</h3>
+                        <p class="message-subtitle">Bridge the gap with thoughtfulness</p>
+                    </div>
+                    <div class="message-body">
+                        <p class="message-label">Frustrated Message</p>
+                        <div class="message-text message-frustrated">
+                            "Wow, I guess I don't matter to you anymore since you never text me back."
+                        </div>
+                        
+                        <div class="message-impact">
+                            <h4 class="impact-title">Emotional Impact:</h4>
+                            <ul class="impact-list">
+                                <li>Makes your friend feel guilty or pressured instead of valued</li>
+                                <li>May cause more avoidance rather than bringing them closer</li>
+                            </ul>
+                        </div>
+                        
+                        <p class="message-label">AI-Guided Solution</p>
+                        <div class="message-text message-improved">
+                            "Hey, I know life gets busy, but I really miss catching up. Hope you're doing okay—let's chat soon!"
+                        </div>
+                        
+                        <div class="message-impact">
+                            <h4 class="impact-title">Outcome:</h4>
+                            <p>Your friend feels valued and is more likely to reconnect.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
+
+    <section class="how-it-works">
+        <h2>How Heart Glow AI Works</h2>
+        <div class="carousel-container">
+            <div class="carousel">
+                <!-- Carousel content is hidden for now -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Animation -->
+    <div id="successAnimation">
         <div class="success-message">
-            <h2>Welcome to Connectly!</h2>
+            <div class="heart-container">
+                <div class="heart"></div>
+            </div>
+            <h2>Welcome to Heart Glow AI!</h2>
             <p>We're excited to help you build stronger relationships.</p>
             <p>Check your email for next steps.</p>
-            <button class="share-button" onclick="sharePage()">Share with a Friend</button>
+            <button class="share-button" onclick="sharePage()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+                Share with a Friend
+            </button>
+            <button class="close-btn" onclick="hideSuccessAnimation()">Close</button>
         </div>
-        <button class="close-button">×</button>
     </div>
 
     <script>
-        function showSuccessAnimation() {
-            const successAnimation = document.getElementById('successAnimation');
-            const successMessage = document.querySelector('.success-message');
-            const closeButton = document.querySelector('.close-button');
-            const heartContainer = document.querySelector('.heart-container');
-
-            successAnimation.classList.add('active');
-            setTimeout(() => {
-                successMessage.classList.add('visible');
-                closeButton.classList.add('visible');
-                heartContainer.classList.add('visible');
-            }, 100);
-        }
-
-        function hideSuccessAnimation() {
-            const successAnimation = document.getElementById('successAnimation');
-            const successMessage = document.querySelector('.success-message');
-            const closeButton = document.querySelector('.close-button');
-            const heartContainer = document.querySelector('.heart-container');
-
-            successMessage.classList.remove('visible');
-            closeButton.classList.remove('visible');
-            heartContainer.classList.remove('visible');
-
-            setTimeout(() => {
-                successAnimation.classList.remove('active');
-            }, 500);
-        }
-
-        async function sharePage() {
-            if (navigator.share) {
-                try {
-                    await navigator.share({
-                        title: 'Connectly - Build Better Relationships',
-                        text: 'Join me on Connectly - the better way to build relationships!',
-                        url: window.location.href
-                    });
-                } catch (error) {
-                    console.log('Error sharing:', error);
-                    // Fallback to clipboard copy
-                    copyToClipboard();
-                }
-            } else {
-                // Fallback to clipboard copy
-                copyToClipboard();
-            }
-        }
-
-        function copyToClipboard() {
-            navigator.clipboard.writeText(window.location.href)
-                .then(() => {
-                    const shareButton = document.querySelector('.share-button');
-                    const originalText = shareButton.textContent;
-                    shareButton.textContent = 'Link Copied!';
-                    setTimeout(() => {
-                        shareButton.textContent = originalText;
-                    }, 2000);
-                })
-                .catch(err => {
-                    console.error('Failed to copy:', err);
-                });
-        }
-
         // Handle form submission
         document.querySelector('.waitlist-form').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -867,85 +917,110 @@
                 console.error('Error:', error);
                 alert('Sorry, there was an error submitting the form. Please try again.');
             } finally {
-                // Re-enable submit button and remove loading state
+                // Re-enable submit button and restore text
                 submitButton.disabled = false;
                 submitButton.classList.remove('loading');
             }
         });
 
-        // Handle close button
-        document.querySelector('.close-button').addEventListener('click', hideSuccessAnimation);
+        // Show success animation
+        function showSuccessAnimation() {
+            const successAnimation = document.getElementById('successAnimation');
+            successAnimation.classList.add('visible');
+        }
 
-        // Carousel functionality
-        const slides = document.querySelectorAll('.carousel-slide');
-        const dots = document.querySelector('.nav-dots');
-        const prevBtn = document.querySelector('.nav-btn.prev');
-        const nextBtn = document.querySelector('.nav-btn.next');
-        let currentSlide = 0;
-        let slideInterval;
+        // Hide success animation
+        function hideSuccessAnimation() {
+            const successAnimation = document.getElementById('successAnimation');
+            successAnimation.classList.remove('visible');
+        }
 
-        // Create dots
-        slides.forEach((_, index) => {
-            const dot = document.createElement('div');
-            dot.classList.add('nav-dot');
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(index));
-            dots.appendChild(dot);
-        });
-
-        function updateSlides() {
-            slides.forEach((slide, index) => {
-                if (index === currentSlide) {
-                    slide.classList.add('active');
-                } else {
-                    slide.classList.remove('active');
+        // Share functionality
+        async function sharePage() {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'Heart Glow AI - Build Better Relationships',
+                        text: 'Join me on Heart Glow AI - the better way to build relationships!',
+                        url: window.location.href
+                    });
+                } catch (error) {
+                    console.error('Error sharing:', error);
                 }
+            } else {
+                // Fallback for desktop
+                const url = window.location.href;
+                navigator.clipboard.writeText(url);
+                alert('Link copied to clipboard! Share it with your friends.');
+            }
+        }
+
+        // GSAP animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Animate feature cards
+            gsap.utils.toArray('.feature-card').forEach(card => {
+                gsap.from(card, {
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    }
+                });
             });
-
-            // Update dots
-            document.querySelectorAll('.nav-dot').forEach((dot, index) => {
-                if (index === currentSlide) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
+            
+            // Animate message cards
+            gsap.utils.toArray('.message-card').forEach((card, index) => {
+                gsap.from(card, {
+                    x: index % 2 === 0 ? -50 : 50,
+                    opacity: 0,
+                    duration: 1,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    }
+                });
             });
-        }
-
-        function goToSlide(index) {
-            currentSlide = index;
-            updateSlides();
-            resetInterval();
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            updateSlides();
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            updateSlides();
-        }
-
-        function resetInterval() {
-            clearInterval(slideInterval);
-            slideInterval = setInterval(nextSlide, 5000);
-        }
-
-        // Event listeners
-        prevBtn.addEventListener('click', () => {
-            prevSlide();
-            resetInterval();
+            
+            // Animate section titles
+            gsap.utils.toArray('.section-title').forEach(title => {
+                gsap.from(title, {
+                    y: 30,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: title,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    }
+                });
+            });
+            
+            // Animate section subtitles
+            gsap.utils.toArray('.section-subtitle').forEach(subtitle => {
+                gsap.from(subtitle, {
+                    y: 30,
+                    opacity: 0,
+                    duration: 0.8,
+                    delay: 0.2,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: subtitle,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    }
+                });
+            });
         });
-
-        nextBtn.addEventListener('click', () => {
-            nextSlide();
-            resetInterval();
-        });
-
-        // Start automatic rotation
-        slideInterval = setInterval(nextSlide, 5000);
     </script>
 </body>
 </html>
