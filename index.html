@@ -1630,6 +1630,76 @@
         </div>
     </div>
 
+    <!-- Direct Privacy Policy Section (Hidden but linkable) -->
+    <section id="privacy" style="display: none;">
+        <div class="container">
+            <h2 class="section-title">Privacy Policy</h2>
+            <p class="policy-date">Effective Date: June 15, 2023</p>
+            
+            <div class="policy-card">
+                <p>Welcome to HeartGlowAI. Your privacy is our priority. This Privacy Policy explains how we collect, use, and protect your information when you use our website and services. By using HeartGlowAI, you consent to the practices outlined in this policy.</p>
+                
+                <h3>1. Information We Collect</h3>
+                <p><strong>a. Information You Provide</strong></p>
+                <p>When you use HeartGlowAI, we may collect:</p>
+                <ul>
+                    <li><strong>Account Information</strong> – Your name, email address, and any other details required for sign-up.</li>
+                    <li><strong>User-Submitted Content</strong> – Messages you input for AI assistance.</li>
+                    <li><strong>Payment Information</strong> – If you subscribe to a paid plan, we may collect billing details (processed securely via third-party providers).</li>
+                </ul>
+                
+                <p><strong>b. Information Collected Automatically</strong></p>
+                <p>When you visit our website or use our services, we automatically collect:</p>
+                <ul>
+                    <li><strong>Usage Data</strong> – Pages visited, time spent, and interactions.</li>
+                    <li><strong>Device Information</strong> – Browser type, IP address, operating system.</li>
+                    <li><strong>Cookies & Tracking Technologies</strong> – We use cookies to enhance user experience and track preferences.</li>
+                </ul>
+                
+                <h3>2. How We Use Your Information</h3>
+                <p>We use your information to:</p>
+                <ul>
+                    <li>Provide and improve HeartGlowAI's services.</li>
+                    <li>Personalize AI-generated responses.</li>
+                    <li>Analyze user trends to enhance features.</li>
+                    <li>Process transactions securely.</li>
+                    <li>Communicate with you about updates, offers, or important notices.</li>
+                    <li>Ensure security and prevent fraudulent activities.</li>
+                </ul>
+                
+                <h3>3. How We Protect Your Information</h3>
+                <p>We take your privacy seriously and implement industry-standard measures to safeguard your data:</p>
+                <ul>
+                    <li><strong>Encryption:</strong> All sensitive data is encrypted in transit and at rest.</li>
+                    <li><strong>Secure Access:</strong> Only authorized personnel can access user data.</li>
+                    <li><strong>Anonymization:</strong> AI responses and analytics are processed without storing identifiable user inputs.</li>
+                    <li><strong>Third-Party Compliance:</strong> We only work with trusted, secure third-party providers.</li>
+                </ul>
+                
+                <h3>4. Sharing of Information</h3>
+                <p>We do not sell or rent your personal information. However, we may share data in the following cases:</p>
+                <ul>
+                    <li><strong>Service Providers:</strong> We use trusted third-party tools (e.g., payment processors, analytics services) that adhere to strict security policies.</li>
+                    <li><strong>Legal Compliance:</strong> If required by law, we may disclose data to comply with legal obligations or protect against fraudulent activities.</li>
+                    <li><strong>Business Transfers:</strong> In case of a merger or acquisition, user data may be transferred with adequate protections.</li>
+                </ul>
+                
+                <h3>5. Your Privacy Choices & Rights</h3>
+                <ul>
+                    <li><strong>Opt-Out:</strong> You can unsubscribe from marketing emails at any time.</li>
+                    <li><strong>Delete Your Data:</strong> You may request account deletion and data removal by contacting us.</li>
+                    <li><strong>Manage Cookies:</strong> Adjust cookie settings in your browser preferences.</li>
+                </ul>
+                
+                <h3>6. Children's Privacy</h3>
+                <p>HeartGlowAI is not intended for children under 13. We do not knowingly collect personal data from minors. If you believe a child has provided us with information, please contact us immediately.</p>
+                
+                <h3>7. Updates to This Policy</h3>
+                <p>We may update this Privacy Policy periodically. Changes will be reflected on this page, and we encourage you to review it regularly. Significant updates will be communicated to registered users.</p>
+            </div>
+        </div>
+    </section>
+    
     <script>
         // Handle form submission
         document.querySelector('.waitlist-form').addEventListener('submit', async function(e) {
@@ -1931,6 +2001,56 @@
                 }
             }, 2000);
         });
+
+        // Show privacy policy
+        function showPrivacyPolicy() {
+            // Get the privacy section
+            const privacySection = document.getElementById('privacy');
+            
+            // Create a modal overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay visible';
+            overlay.style.zIndex = '2000';
+            overlay.style.backgroundColor = 'var(--main-gradient)';
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.overflowY = 'auto';
+            overlay.style.padding = '2rem 0';
+            
+            // Clone the privacy content
+            const privacyContent = privacySection.querySelector('.container').cloneNode(true);
+            privacyContent.style.maxWidth = '900px';
+            privacyContent.style.margin = '0 auto';
+            privacyContent.style.padding = '2rem';
+            privacyContent.style.background = 'rgba(0, 0, 0, 0.2)';
+            privacyContent.style.borderRadius = '12px';
+            privacyContent.style.backdropFilter = 'blur(10px)';
+            
+            // Add close button
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'btn';
+            closeBtn.textContent = 'Close';
+            closeBtn.style.display = 'block';
+            closeBtn.style.margin = '2rem auto 0';
+            closeBtn.onclick = function() {
+                document.body.removeChild(overlay);
+            };
+            
+            // Append close button to privacy content
+            privacyContent.appendChild(closeBtn);
+            
+            // Append privacy content to overlay
+            overlay.appendChild(privacyContent);
+            
+            // Append overlay to body
+            document.body.appendChild(overlay);
+            
+            // Prevent default link behavior
+            return false;
+        }
     </script>
 
     <!-- Trust and Privacy Section -->
@@ -1953,7 +2073,7 @@
                 </div>
             </div>
             
-            <p class="trust-footer">By joining our waitlist, you agree to our <a href="privacy.html" class="privacy-link">Privacy Policy</a>. We will never sell your personal information to third parties.</p>
+            <p class="trust-footer">By joining our waitlist, you agree to our <a href="#privacy" class="privacy-link" onclick="showPrivacyPolicy()">Privacy Policy</a>. We will never sell your personal information to third parties.</p>
         </div>
     </section>
 </body>
