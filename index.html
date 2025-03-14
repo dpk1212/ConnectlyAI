@@ -275,12 +275,32 @@
             opacity: 0;
             transform: translateY(20px);
             animation: fadeIn 1s ease forwards 0.3s;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
             letter-spacing: 0.05em;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(4px);
+            display: inline-block;
         }
 
         .hero-title span {
             display: inline-block;
+        }
+
+        .hero-title .highlight {
+            color: white;
+            background: var(--accent-light);
+            -webkit-background-clip: initial;
+            -webkit-text-fill-color: initial;
+            background-clip: initial;
+            text-fill-color: initial;
+            padding: 0 0.2em;
+            border-radius: 4px;
+        }
+
+        .hero-title .highlight::after {
+            display: none;
         }
 
         .hero-subtitle {
@@ -288,15 +308,18 @@
             font-size: 1.5rem;
             font-weight: 400;
             margin-bottom: 2.5rem;
-            opacity: 0.95;
-            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeIn 1s ease forwards 0.6s;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
             letter-spacing: 0.025em;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(4px);
+            max-width: 800px;
         }
 
         /* Floating background hearts */
@@ -364,31 +387,32 @@
             display: flex;
             max-width: 500px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(0, 0, 0, 0.25);
             backdrop-filter: blur(10px);
             border-radius: var(--input-radius);
-            padding: 0.5rem;
-            box-shadow: var(--card-shadow);
+            padding: 0.6rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transform-style: preserve-3d;
             perspective: 1000px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.15);
         }
 
         .waitlist-form input {
             flex: 1;
             padding: 1rem 1.5rem;
             border: none;
-            background: transparent;
+            background: rgba(255, 255, 255, 0.1);
             color: white;
             font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
             font-weight: 500;
             outline: none;
             letter-spacing: 0.025em;
+            border-radius: var(--input-radius);
         }
 
         .waitlist-form input::placeholder {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             font-family: 'Montserrat', sans-serif;
             font-weight: 500;
         }
@@ -397,23 +421,25 @@
             padding: 1rem 2rem;
             border: none;
             border-radius: var(--button-radius);
-            background: var(--button-gradient);
-            color: white;
+            background: white;
+            color: var(--accent-color);
             font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1rem;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             transform-style: preserve-3d;
             perspective: 1000px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
             letter-spacing: 0.025em;
+            margin-left: 0.5rem;
         }
 
         .waitlist-form button:hover {
             transform: translateY(-2px) translateZ(10px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
         }
 
         .waitlist-form button:disabled {
@@ -438,7 +464,7 @@
             position: absolute;
             width: 20px;
             height: 32px;
-            background-color: white;
+            background-color: var(--accent-color);
             border-radius: 10px 10px 0 0;
         }
 
@@ -472,26 +498,36 @@
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.9);
             text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .privacy-link {
-            color: #f27121;
+            color: white;
             text-decoration: underline;
-            font-weight: 500;
+            font-weight: 600;
             transition: color 0.3s ease;
         }
 
         .privacy-link:hover {
-            color: #e94057;
+            color: var(--accent-light);
         }
 
         .waitlist-counter {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
             border-radius: 20px;
             padding: 0.4rem 1rem;
             display: inline-block;
             margin-top: 0.8rem;
             font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .beta-note {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .scroll-indicator {
@@ -917,91 +953,6 @@
             letter-spacing: 0.025em;
         }
 
-        /* Responsive styles */
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .waitlist-form {
-                flex-direction: column;
-                background: rgba(255, 255, 255, 0.15);
-                box-shadow: none;
-                backdrop-filter: none;
-                padding: 0;
-                border: none;
-            }
-            
-            .waitlist-form input {
-                width: 100%;
-                margin-bottom: 1rem;
-                border-radius: var(--input-radius);
-                background: rgba(255, 255, 255, 0.15);
-                backdrop-filter: blur(5px);
-                padding: 1rem 1.5rem;
-                border: 2px solid rgba(255, 255, 255, 0.1);
-            }
-            
-            .waitlist-form button {
-                width: 100%;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .message-cards {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .section-subtitle {
-                font-size: 1rem;
-            }
-            
-            .survey-container {
-                padding: 2rem 1.5rem 2rem;
-                max-height: 90vh;
-                margin: 20px 0;
-            }
-            
-            .radio-group {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-            
-            .survey-submit {
-                width: 100%;
-                max-width: 100%;
-                margin-top: 3rem;
-            }
-            
-            .modal-overlay {
-                align-items: flex-start;
-                padding: 10px;
-            }
-            
-            .survey-form {
-                padding-bottom: 0;
-                margin-bottom: 1rem;
-            }
-        }
-
-        .beta-note {
-            font-size: 0.9rem;
-            margin-top: 1rem;
-            color: rgba(255, 255, 255, 0.9);
-            font-style: italic;
-        }
-
         /* Additional styles for the improved success animation */
         .success-badge {
             background: var(--accent-color);
@@ -1212,34 +1163,34 @@
         
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2.2rem;
+                padding: 0.75rem;
             }
             
             .hero-subtitle {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
+                padding: 0.75rem 1rem;
             }
             
             .waitlist-form {
                 flex-direction: column;
-                background: rgba(255, 255, 255, 0.15);
-                box-shadow: none;
-                backdrop-filter: none;
-                padding: 0;
-                border: none;
+                background: rgba(0, 0, 0, 0.25);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+                padding: 0.75rem;
             }
             
             .waitlist-form input {
                 width: 100%;
-                margin-bottom: 1rem;
+                margin-bottom: 0.75rem;
                 border-radius: var(--input-radius);
-                background: rgba(255, 255, 255, 0.15);
-                backdrop-filter: blur(5px);
+                background: rgba(255, 255, 255, 0.1);
                 padding: 1rem 1.5rem;
-                border: 2px solid rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.2);
             }
             
             .waitlist-form button {
                 width: 100%;
+                margin-left: 0;
             }
             
             .features-grid {
@@ -1309,10 +1260,10 @@
                 </div>
             </div>
             <h1 class="hero-title">
-                <span>Never </span>
-                <span>Struggle With </span>
-                <span class="highlight">What to Say</span>
-                <span> in Any Relationship.</span>
+                <span>Never </span><br>
+                <span>Struggle With </span><br>
+                <span class="highlight">What to Say</span><br>
+                <span>in Any Relationship</span>
             </h1>
             <p class="hero-subtitle">HeartGlowAI delivers personalized, AI-powered guidance to help you craft perfect messages, understand your loved ones better, and build deeper connections with partners, friends, and family.</p>
             <div class="waitlist-container">
