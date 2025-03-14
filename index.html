@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Heart Glow AI - Build Better Relationships</title>
+    <title>HeartGlowAI - Know What to Say, Understand What They Mean</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -719,6 +719,80 @@
                 align-items: center;
             }
         }
+
+        .beta-note {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-style: italic;
+        }
+
+        /* Additional styles for the improved success animation */
+        .success-badge {
+            background: var(--accent-color);
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .success-primary {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .next-steps {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .next-steps h3 {
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            color: var(--accent-color);
+        }
+        
+        .next-steps ol {
+            padding-left: 1.5rem;
+        }
+        
+        .next-steps li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .success-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .referral-note {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        
+        .success-message .close-btn {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            transition: all var(--transition-normal);
+        }
+        
+        .success-message .close-btn:hover {
+            background: white;
+            color: var(--primary-color);
+        }
     </style>
 </head>
 <body>
@@ -731,20 +805,21 @@
                 </div>
             </div>
             <h1 class="hero-title">
-                <span>Feel </span>
-                <span>Closer.</span>
-                <span class="highlight">Communicate Better.</span>
-                <span>Strengthen Your Relationships.</span>
+                <span>Never </span>
+                <span>Struggle With </span>
+                <span class="highlight">What to Say</span>
+                <span> in Any Relationship.</span>
             </h1>
-            <p class="hero-subtitle">Daily AI guidance to help you build deeper, stronger relationships.</p>
+            <p class="hero-subtitle">HeartGlowAI delivers personalized, AI-powered guidance to help you craft perfect messages, understand your loved ones better, and build deeper connections with partners, friends, and family.</p>
             <div class="waitlist-container">
                 <form class="waitlist-form" action="https://formspree.io/f/mjkyvdal" method="POST">
-                    <input type="email" name="email" placeholder="Enter your email address here" required>
+                    <input type="email" name="email" placeholder="Enter your email for exclusive early access" required>
                     <button type="submit">
-                        Join Waitlist
+                        Join Private Beta
                         <div class="spinning-heart"></div>
                     </button>
                 </form>
+                <p class="beta-note">Limited spots available. Early access members receive lifetime benefits.</p>
             </div>
         </div>
         <div class="scroll-indicator">
@@ -756,26 +831,26 @@
 
     <section class="features">
         <div class="container">
-            <h2 class="section-title">Transform Your Communication</h2>
-            <p class="section-subtitle">Heart Glow AI guides you in creating messages that build connection instead of conflict.</p>
+            <h2 class="section-title">Transform Every Relationship</h2>
+            <p class="section-subtitle">Stop feeling stuck, misunderstood, or unsure what to say. HeartGlowAI provides personalized guidance for all your important connections.</p>
             
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">✨</div>
-                    <h3 class="feature-title">AI-Powered Guidance</h3>
-                    <p class="feature-description">Get real-time suggestions that transform problematic messages into relationship-building communication.</p>
+                    <h3 class="feature-title">Say It Right the First Time</h3>
+                    <p class="feature-description">Get tailored, real-time guidance on what to say and when, eliminating awkward miscommunications and painful misinterpretations in any conversation.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">💞</div>
-                    <h3 class="feature-title">Emotional Intelligence</h3>
-                    <p class="feature-description">Our AI identifies emotional triggers and helps you communicate with empathy and understanding.</p>
+                    <h3 class="feature-title">Understand What They Really Mean</h3>
+                    <p class="feature-description">Our AI helps you decode messages from loved ones, reducing defensiveness and fostering the deeper understanding that builds lasting connections.</p>
                 </div>
                 
                 <div class="feature-card">
                     <div class="feature-icon">🛠️</div>
-                    <h3 class="feature-title">Context-Aware</h3>
-                    <p class="feature-description">Get personalized advice based on your specific relationship type and communication style.</p>
+                    <h3 class="feature-title">Custom Relationship Elevation</h3>
+                    <p class="feature-description">Break through plateaus with personalized plans that strengthen bonds in romantic relationships, friendships, and family connections.</p>
                 </div>
             </div>
         </div>
@@ -783,68 +858,68 @@
 
     <section class="message-demo">
         <div class="container">
-            <h2 class="section-title">See the Difference</h2>
-            <p class="section-subtitle">Compare how AI guidance transforms difficult messages into relationship-building communication.</p>
+            <h2 class="section-title">Never Send the Wrong Message Again</h2>
+            <p class="section-subtitle">See how HeartGlowAI transforms defensive reactions into connection-building responses across all your relationships.</p>
             
             <div class="message-cards">
                 <div class="message-card">
                     <div class="message-header">
-                        <h3 class="message-title">Feeling Unheard in a Relationship</h3>
-                        <p class="message-subtitle">Transform frustration into connection</p>
+                        <h3 class="message-title">When Your Partner Doesn't Listen</h3>
+                        <p class="message-subtitle">From frustration to connection in seconds</p>
                     </div>
                     <div class="message-body">
-                        <p class="message-label">Frustrated Message</p>
+                        <p class="message-label">What You Might Say</p>
                         <div class="message-text message-frustrated">
                             "You never listen to me! It's like I'm talking to a wall!"
                         </div>
                         
                         <div class="message-impact">
-                            <h4 class="impact-title">Emotional Impact:</h4>
+                            <h4 class="impact-title">Why It Doesn't Work:</h4>
                             <ul class="impact-list">
-                                <li>Makes your partner defensive instead of receptive</li>
-                                <li>Shuts down communication instead of opening it up</li>
+                                <li>Creates immediate defensiveness rather than openness</li>
+                                <li>Focuses on blame instead of the solution you want</li>
                             </ul>
                         </div>
                         
-                        <p class="message-label">AI-Guided Solution</p>
+                        <p class="message-label">HeartGlowAI Suggestion</p>
                         <div class="message-text message-improved">
                             "I feel unheard, and that's frustrating for me. I'd love for us to really listen to each other—can we take a moment to connect?"
                         </div>
                         
                         <div class="message-impact">
-                            <h4 class="impact-title">Outcome:</h4>
-                            <p>Your partner feels respected and is more likely to listen calmly.</p>
+                            <h4 class="impact-title">The Difference:</h4>
+                            <p>Expresses feelings without accusation, offers a clear path forward, and invites collaboration instead of conflict.</p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="message-card">
                     <div class="message-header">
-                        <h3 class="message-title">Reconnecting with a Distant Friend</h3>
-                        <p class="message-subtitle">Bridge the gap with thoughtfulness</p>
+                        <h3 class="message-title">Reconnecting With a Distant Friend</h3>
+                        <p class="message-subtitle">Turn silence into meaningful reconnection</p>
                     </div>
                     <div class="message-body">
-                        <p class="message-label">Frustrated Message</p>
+                        <p class="message-label">What You Might Say</p>
                         <div class="message-text message-frustrated">
                             "Wow, I guess I don't matter to you anymore since you never text me back."
                         </div>
                         
                         <div class="message-impact">
-                            <h4 class="impact-title">Emotional Impact:</h4>
+                            <h4 class="impact-title">Why It Doesn't Work:</h4>
                             <ul class="impact-list">
-                                <li>Makes your friend feel guilty or pressured instead of valued</li>
-                                <li>May cause more avoidance rather than bringing them closer</li>
+                                <li>Creates guilt and pressure rather than desire to reconnect</li>
+                                <li>Positions you as needy rather than understanding</li>
                             </ul>
                         </div>
                         
-                        <p class="message-label">AI-Guided Solution</p>
+                        <p class="message-label">HeartGlowAI Suggestion</p>
                         <div class="message-text message-improved">
-                            "Hey, I know life gets busy, but I really miss catching up. Hope you're doing okay—let's chat soon!"
+                            "Hey, I know life gets busy, but I really miss catching up. Hope you're doing okay—let's chat soon when things calm down for you!"
                         </div>
                         
                         <div class="message-impact">
-                            <h4 class="impact-title">Outcome:</h4>
-                            <p>Your friend feels valued and is more likely to reconnect.</p>
+                            <h4 class="impact-title">The Difference:</h4>
+                            <p>Shows empathy for their situation, expresses genuine care, and creates a no-pressure invitation to reconnect.</p>
                         </div>
                     </div>
                 </div>
@@ -867,20 +942,33 @@
             <div class="heart-container">
                 <div class="heart"></div>
             </div>
-            <h2>Welcome to Heart Glow AI!</h2>
-            <p>We're excited to help you build stronger relationships.</p>
-            <p>Check your email for next steps.</p>
-            <button class="share-button" onclick="sharePage()">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="18" cy="5" r="3"></circle>
-                    <circle cx="6" cy="12" r="3"></circle>
-                    <circle cx="18" cy="19" r="3"></circle>
-                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                </svg>
-                Share with a Friend
-            </button>
-            <button class="close-btn" onclick="hideSuccessAnimation()">Close</button>
+            <h2>You're In! Welcome to HeartGlowAI's Elite Beta</h2>
+            <div class="success-badge">
+                <span>Early Access Member</span>
+            </div>
+            <p class="success-primary">You're joining a limited group of relationship pioneers with exclusive lifetime benefits.</p>
+            <div class="next-steps">
+                <h3>What happens next:</h3>
+                <ol>
+                    <li>Check your inbox for your personalized welcome guide</li>
+                    <li>Get early access to our AI message crafting tools</li>
+                    <li>Provide feedback that shapes the future of relationship technology</li>
+                </ol>
+            </div>
+            <div class="success-actions">
+                <button class="share-button" onclick="sharePage()">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                    Invite Someone Special
+                </button>
+                <p class="referral-note">Help someone you care about transform their relationships too</p>
+            </div>
+            <button class="close-btn" onclick="hideSuccessAnimation()">Continue to Site</button>
         </div>
     </div>
 
@@ -940,8 +1028,8 @@
             if (navigator.share) {
                 try {
                     await navigator.share({
-                        title: 'Heart Glow AI - Build Better Relationships',
-                        text: 'Join me on Heart Glow AI - the better way to build relationships!',
+                        title: 'HeartGlowAI - Know What to Say, Understand What They Mean',
+                        text: 'HeartGlowAI is helping me build deeper connections in my relationships with personalized communication guidance. I thought you might want early access too!',
                         url: window.location.href
                     });
                 } catch (error) {
