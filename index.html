@@ -1367,6 +1367,237 @@
                 padding: 0.75rem;
             }
         }
+
+        /* Privacy Policy Modal Styles */
+        .privacy-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--main-gradient);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            overflow-y: auto;
+        }
+        
+        .privacy-modal.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .privacy-container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 16px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 0;
+            position: relative;
+            margin: 2rem auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.1);
+        }
+        
+        .privacy-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .privacy-container::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        
+        .privacy-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+        
+        .privacy-header {
+            position: sticky;
+            top: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+        
+        .privacy-close {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+        }
+        
+        .privacy-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .privacy-title {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .privacy-date {
+            font-style: italic;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .privacy-content {
+            padding: 2rem;
+        }
+        
+        .privacy-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .privacy-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: white;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .privacy-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 3px;
+        }
+        
+        .privacy-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        
+        .privacy-section ul, 
+        .privacy-section ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .privacy-section li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .privacy-nav {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .privacy-nav-title {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+        
+        .privacy-nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .privacy-nav-link {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .privacy-nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .privacy-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .privacy-footer .btn {
+            padding: 0.75rem 1.75rem;
+        }
+        
+        @media (max-width: 768px) {
+            .privacy-container {
+                max-height: 90vh;
+            }
+            
+            .privacy-header {
+                padding: 1rem 1.5rem;
+            }
+            
+            .privacy-title {
+                font-size: 1.5rem;
+            }
+            
+            .privacy-content {
+                padding: 1.5rem;
+            }
+            
+            .privacy-close {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+                right: 1rem;
+                top: 1rem;
+            }
+            
+            .privacy-section h3 {
+                font-size: 1.25rem;
+            }
+            
+            .privacy-nav-links {
+                gap: 0.4rem;
+            }
+            
+            .privacy-nav-link {
+                font-size: 0.8rem;
+                padding: 0.25rem 0.6rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1631,74 +1862,110 @@
     </div>
 
     <!-- Direct Privacy Policy Section (Hidden but linkable) -->
-    <section id="privacy" style="display: none;">
-        <div class="container">
-            <h2 class="section-title">Privacy Policy</h2>
-            <p class="policy-date">Effective Date: June 15, 2023</p>
+    <div id="privacyModal" class="privacy-modal">
+        <div class="privacy-container">
+            <div class="privacy-header">
+                <div>
+                    <h2 class="privacy-title">Privacy Policy</h2>
+                    <p class="privacy-date">Effective Date: June 15, 2023</p>
+                </div>
+                <button class="privacy-close" onclick="hidePrivacyPolicy()">&times;</button>
+            </div>
             
-            <div class="policy-card">
+            <div class="privacy-content">
+                <div class="privacy-nav">
+                    <p class="privacy-nav-title">Quick Navigation:</p>
+                    <div class="privacy-nav-links">
+                        <a href="#privacy-collection" class="privacy-nav-link" onclick="scrollToPrivacySection('privacy-collection')">Information Collection</a>
+                        <a href="#privacy-usage" class="privacy-nav-link" onclick="scrollToPrivacySection('privacy-usage')">How We Use Information</a>
+                        <a href="#privacy-protection" class="privacy-nav-link" onclick="scrollToPrivacySection('privacy-protection')">Data Protection</a>
+                        <a href="#privacy-sharing" class="privacy-nav-link" onclick="scrollToPrivacySection('privacy-sharing')">Information Sharing</a>
+                        <a href="#privacy-choices" class="privacy-nav-link" onclick="scrollToPrivacySection('privacy-choices')">Your Choices</a>
+                        <a href="#privacy-children" class="privacy-nav-link" onclick="scrollToPrivacySection('privacy-children')">Children's Privacy</a>
+                        <a href="#privacy-updates" class="privacy-nav-link" onclick="scrollToPrivacySection('privacy-updates')">Policy Updates</a>
+                    </div>
+                </div>
+                
                 <p>Welcome to HeartGlowAI. Your privacy is our priority. This Privacy Policy explains how we collect, use, and protect your information when you use our website and services. By using HeartGlowAI, you consent to the practices outlined in this policy.</p>
                 
-                <h3>1. Information We Collect</h3>
-                <p><strong>a. Information You Provide</strong></p>
-                <p>When you use HeartGlowAI, we may collect:</p>
-                <ul>
-                    <li><strong>Account Information</strong> – Your name, email address, and any other details required for sign-up.</li>
-                    <li><strong>User-Submitted Content</strong> – Messages you input for AI assistance.</li>
-                    <li><strong>Payment Information</strong> – If you subscribe to a paid plan, we may collect billing details (processed securely via third-party providers).</li>
-                </ul>
+                <div id="privacy-collection" class="privacy-section">
+                    <h3>1. Information We Collect</h3>
+                    <p><strong>a. Information You Provide</strong></p>
+                    <p>When you use HeartGlowAI, we may collect:</p>
+                    <ul>
+                        <li><strong>Account Information</strong> – Your name, email address, and any other details required for sign-up.</li>
+                        <li><strong>User-Submitted Content</strong> – Messages you input for AI assistance.</li>
+                        <li><strong>Payment Information</strong> – If you subscribe to a paid plan, we may collect billing details (processed securely via third-party providers).</li>
+                    </ul>
+                    
+                    <p><strong>b. Information Collected Automatically</strong></p>
+                    <p>When you visit our website or use our services, we automatically collect:</p>
+                    <ul>
+                        <li><strong>Usage Data</strong> – Pages visited, time spent, and interactions.</li>
+                        <li><strong>Device Information</strong> – Browser type, IP address, operating system.</li>
+                        <li><strong>Cookies & Tracking Technologies</strong> – We use cookies to enhance user experience and track preferences.</li>
+                    </ul>
+                </div>
                 
-                <p><strong>b. Information Collected Automatically</strong></p>
-                <p>When you visit our website or use our services, we automatically collect:</p>
-                <ul>
-                    <li><strong>Usage Data</strong> – Pages visited, time spent, and interactions.</li>
-                    <li><strong>Device Information</strong> – Browser type, IP address, operating system.</li>
-                    <li><strong>Cookies & Tracking Technologies</strong> – We use cookies to enhance user experience and track preferences.</li>
-                </ul>
+                <div id="privacy-usage" class="privacy-section">
+                    <h3>2. How We Use Your Information</h3>
+                    <p>We use your information to:</p>
+                    <ul>
+                        <li>Provide and improve HeartGlowAI's services.</li>
+                        <li>Personalize AI-generated responses.</li>
+                        <li>Analyze user trends to enhance features.</li>
+                        <li>Process transactions securely.</li>
+                        <li>Communicate with you about updates, offers, or important notices.</li>
+                        <li>Ensure security and prevent fraudulent activities.</li>
+                    </ul>
+                </div>
                 
-                <h3>2. How We Use Your Information</h3>
-                <p>We use your information to:</p>
-                <ul>
-                    <li>Provide and improve HeartGlowAI's services.</li>
-                    <li>Personalize AI-generated responses.</li>
-                    <li>Analyze user trends to enhance features.</li>
-                    <li>Process transactions securely.</li>
-                    <li>Communicate with you about updates, offers, or important notices.</li>
-                    <li>Ensure security and prevent fraudulent activities.</li>
-                </ul>
+                <div id="privacy-protection" class="privacy-section">
+                    <h3>3. How We Protect Your Information</h3>
+                    <p>We take your privacy seriously and implement industry-standard measures to safeguard your data:</p>
+                    <ul>
+                        <li><strong>Encryption:</strong> All sensitive data is encrypted in transit and at rest.</li>
+                        <li><strong>Secure Access:</strong> Only authorized personnel can access user data.</li>
+                        <li><strong>Anonymization:</strong> AI responses and analytics are processed without storing identifiable user inputs.</li>
+                        <li><strong>Third-Party Compliance:</strong> We only work with trusted, secure third-party providers.</li>
+                    </ul>
+                </div>
                 
-                <h3>3. How We Protect Your Information</h3>
-                <p>We take your privacy seriously and implement industry-standard measures to safeguard your data:</p>
-                <ul>
-                    <li><strong>Encryption:</strong> All sensitive data is encrypted in transit and at rest.</li>
-                    <li><strong>Secure Access:</strong> Only authorized personnel can access user data.</li>
-                    <li><strong>Anonymization:</strong> AI responses and analytics are processed without storing identifiable user inputs.</li>
-                    <li><strong>Third-Party Compliance:</strong> We only work with trusted, secure third-party providers.</li>
-                </ul>
+                <div id="privacy-sharing" class="privacy-section">
+                    <h3>4. Sharing of Information</h3>
+                    <p>We do not sell or rent your personal information. However, we may share data in the following cases:</p>
+                    <ul>
+                        <li><strong>Service Providers:</strong> We use trusted third-party tools (e.g., payment processors, analytics services) that adhere to strict security policies.</li>
+                        <li><strong>Legal Compliance:</strong> If required by law, we may disclose data to comply with legal obligations or protect against fraudulent activities.</li>
+                        <li><strong>Business Transfers:</strong> In case of a merger or acquisition, user data may be transferred with adequate protections.</li>
+                    </ul>
+                </div>
                 
-                <h3>4. Sharing of Information</h3>
-                <p>We do not sell or rent your personal information. However, we may share data in the following cases:</p>
-                <ul>
-                    <li><strong>Service Providers:</strong> We use trusted third-party tools (e.g., payment processors, analytics services) that adhere to strict security policies.</li>
-                    <li><strong>Legal Compliance:</strong> If required by law, we may disclose data to comply with legal obligations or protect against fraudulent activities.</li>
-                    <li><strong>Business Transfers:</strong> In case of a merger or acquisition, user data may be transferred with adequate protections.</li>
-                </ul>
+                <div id="privacy-choices" class="privacy-section">
+                    <h3>5. Your Privacy Choices & Rights</h3>
+                    <ul>
+                        <li><strong>Opt-Out:</strong> You can unsubscribe from marketing emails at any time.</li>
+                        <li><strong>Delete Your Data:</strong> You may request account deletion and data removal by contacting us.</li>
+                        <li><strong>Manage Cookies:</strong> Adjust cookie settings in your browser preferences.</li>
+                    </ul>
+                </div>
                 
-                <h3>5. Your Privacy Choices & Rights</h3>
-                <ul>
-                    <li><strong>Opt-Out:</strong> You can unsubscribe from marketing emails at any time.</li>
-                    <li><strong>Delete Your Data:</strong> You may request account deletion and data removal by contacting us.</li>
-                    <li><strong>Manage Cookies:</strong> Adjust cookie settings in your browser preferences.</li>
-                </ul>
+                <div id="privacy-children" class="privacy-section">
+                    <h3>6. Children's Privacy</h3>
+                    <p>HeartGlowAI is not intended for children under 13. We do not knowingly collect personal data from minors. If you believe a child has provided us with information, please contact us immediately.</p>
+                </div>
                 
-                <h3>6. Children's Privacy</h3>
-                <p>HeartGlowAI is not intended for children under 13. We do not knowingly collect personal data from minors. If you believe a child has provided us with information, please contact us immediately.</p>
-                
-                <h3>7. Updates to This Policy</h3>
-                <p>We may update this Privacy Policy periodically. Changes will be reflected on this page, and we encourage you to review it regularly. Significant updates will be communicated to registered users.</p>
+                <div id="privacy-updates" class="privacy-section">
+                    <h3>7. Updates to This Policy</h3>
+                    <p>We may update this Privacy Policy periodically. Changes will be reflected on this page, and we encourage you to review it regularly. Significant updates will be communicated to registered users.</p>
+                </div>
+            </div>
+            
+            <div class="privacy-footer">
+                <button class="btn" onclick="hidePrivacyPolicy()">I Understand & Accept</button>
             </div>
         </div>
-    </section>
+    </div>
     
     <script>
         // Handle form submission
@@ -2004,53 +2271,72 @@
 
         // Show privacy policy
         function showPrivacyPolicy() {
-            // Get the privacy section
-            const privacySection = document.getElementById('privacy');
+            // Show the privacy modal
+            const privacyModal = document.getElementById('privacyModal');
+            privacyModal.classList.add('visible');
             
-            // Create a modal overlay
-            const overlay = document.createElement('div');
-            overlay.className = 'modal-overlay visible';
-            overlay.style.zIndex = '2000';
-            overlay.style.backgroundColor = 'var(--main-gradient)';
-            overlay.style.position = 'fixed';
-            overlay.style.top = '0';
-            overlay.style.left = '0';
-            overlay.style.width = '100%';
-            overlay.style.height = '100%';
-            overlay.style.overflowY = 'auto';
-            overlay.style.padding = '2rem 0';
+            // Prevent scrolling on the body
+            document.body.style.overflow = 'hidden';
             
-            // Clone the privacy content
-            const privacyContent = privacySection.querySelector('.container').cloneNode(true);
-            privacyContent.style.maxWidth = '900px';
-            privacyContent.style.margin = '0 auto';
-            privacyContent.style.padding = '2rem';
-            privacyContent.style.background = 'rgba(0, 0, 0, 0.2)';
-            privacyContent.style.borderRadius = '12px';
-            privacyContent.style.backdropFilter = 'blur(10px)';
-            
-            // Add close button
-            const closeBtn = document.createElement('button');
-            closeBtn.className = 'btn';
-            closeBtn.textContent = 'Close';
-            closeBtn.style.display = 'block';
-            closeBtn.style.margin = '2rem auto 0';
-            closeBtn.onclick = function() {
-                document.body.removeChild(overlay);
-            };
-            
-            // Append close button to privacy content
-            privacyContent.appendChild(closeBtn);
-            
-            // Append privacy content to overlay
-            overlay.appendChild(privacyContent);
-            
-            // Append overlay to body
-            document.body.appendChild(overlay);
+            // Add escape key listener
+            document.addEventListener('keydown', handlePrivacyEscapeKey);
             
             // Prevent default link behavior
             return false;
         }
+        
+        // Hide privacy policy
+        function hidePrivacyPolicy() {
+            const privacyModal = document.getElementById('privacyModal');
+            privacyModal.classList.remove('visible');
+            
+            // Restore scrolling on the body
+            document.body.style.overflow = '';
+            
+            // Remove escape key listener
+            document.removeEventListener('keydown', handlePrivacyEscapeKey);
+        }
+        
+        // Handle escape key press
+        function handlePrivacyEscapeKey(e) {
+            if (e.key === 'Escape') {
+                hidePrivacyPolicy();
+            }
+        }
+        
+        // Scroll to a specific section in the privacy policy
+        function scrollToPrivacySection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const container = document.querySelector('.privacy-container');
+            
+            if (section && container) {
+                // Get the section's position relative to the container
+                const sectionTop = section.offsetTop;
+                const headerHeight = document.querySelector('.privacy-header').offsetHeight;
+                
+                // Smooth scroll to the section with an offset for the sticky header
+                container.scrollTo({
+                    top: sectionTop - headerHeight - 20,
+                    behavior: 'smooth'
+                });
+            }
+            
+            // Prevent default link behavior
+            return false;
+        }
+        
+        // Add click outside listener for privacy modal
+        document.addEventListener('DOMContentLoaded', function() {
+            const privacyModal = document.getElementById('privacyModal');
+            const privacyContainer = document.querySelector('.privacy-container');
+            
+            privacyModal.addEventListener('click', function(e) {
+                // Close the modal if clicking outside the container
+                if (e.target === privacyModal) {
+                    hidePrivacyPolicy();
+                }
+            });
+        });
     </script>
 
     <!-- Trust and Privacy Section -->
@@ -2073,7 +2359,7 @@
                 </div>
             </div>
             
-            <p class="trust-footer">By joining our waitlist, you agree to our <a href="#privacy" class="privacy-link" onclick="showPrivacyPolicy()">Privacy Policy</a>. We will never sell your personal information to third parties.</p>
+            <p class="trust-footer">By joining our waitlist, you agree to our <a href="#privacyModal" class="privacy-link" onclick="showPrivacyPolicy()">Privacy Policy</a>. We will never sell your personal information to third parties.</p>
         </div>
     </section>
 </body>
